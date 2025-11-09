@@ -3,16 +3,16 @@
 async def kick(interaction: discord.Interaction, user: discord.Member, reason: str = "No reason was given."):
 
     if not interaction.user.guild_permissions.moderate_members:
-        return await interaction.response.send_message("❌ You don't have permission that can kick the user.", ephemeral=True)
+        return await interaction.response.send_message("❌ You don't have permission that can kick user.", ephemeral=True)
 
     if not interaction.guild.me.guild_permissions.moderate_members:
-        return await interaction.response.send_message("❌ Bot doesn't have permission that can kick the user !", ephemeral=True)
+        return await interaction.response.send_message("❌ Bot doesn't have permission that can kick user !", ephemeral=True)
 
-    # 自分自身をタイムアウトしようとしているか
+    # 自分自身をキックしようとしているか
     if user.id == interaction.user.id:
         return await interaction.response.send_message("❌ You can't kick yourself !", ephemeral=True)
 
-    # Botをタイムアウトしようとしているか
+    # Botをキックしようとしているか
     if user.id == bot.user.id:
         return await interaction.response.send_message("❌ You can't kick bot !", ephemeral=True)
 
