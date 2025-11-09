@@ -22,17 +22,3 @@ jobs:
           architecture: 'x64'
 
       - run: pip install discord.py
-
-deploy:
-
-  needs: build
-
-  runs-on: ubuntu-latest
-
-  steps:
-      - uses: actions/checkout@v4
-      - name: Run the bot
-env:
-          DISCORD_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-        run: python your_bot_script.py "${{ github.event.inputs.message }}"
-
