@@ -20,7 +20,16 @@ async def ban(interaction: discord.Interaction, user: discord.User, reason: str 
     if user.top_role >= interaction.user.top_role and interaction.user.id != interaction.guild.owner_id and member is not None:
         return await interaction.response.send_message("❌ You can't ban user who has a higher or equal role.", ephemeral=True)
 
- # 理由の長さ制限（Discord API制限対応）
+try:
+        # ユーザーID からユーザー情報を取得
+        user = await bot.fetch_user(int(user_id))
+
+    except discord.NotFound:
+        # ユーザーが Discord に存在しない
+        await interaction.response.send_message("❌ This user_id doesn't exsit.", ephemeral=True)
+        return 
+
+# 理由の長さ制限（Discord API制限対応）
     audit_reason = f"Ban performer: {interaction.user} | Reason: {reason}"        
 
     await interaction.guild.ban(user, reason=audit_reason)
