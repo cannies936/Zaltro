@@ -18,7 +18,7 @@ async def ban(interaction: discord.Interaction, user: discord.User, reason: str 
 
     # 権限階層チェック
     if user.top_role >= interaction.user.top_role and interaction.user.id != interaction.guild.owner_id and member is not None:
-        return await interaction.response.send_message("❌ You can't ban user who has a higher or same role.", ephemeral=True)
+        return await interaction.response.send_message("❌ You can't ban user who has a higher or equal role.", ephemeral=True)
 
  # 理由の長さ制限（Discord API制限対応）
     audit_reason = f"Ban performer: {interaction.user} | Reason: {reason}"        
