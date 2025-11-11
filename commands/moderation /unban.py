@@ -19,7 +19,7 @@ async def unban(interaction: discord.Interaction, user_id: str, reason: str = "N
     try:
         user = await bot.fetch_user(user_id)
     except discord.NotFound:
-        return await interaction.response.send_message("❌ This user ID does not exist on Discord.", ephemeral=True)
+        return await interaction.response.send_message("❌ This user_id doesn't exist.", ephemeral=True)
 
     # ---- サーバーの Ban リストから確認 ----
     try:
@@ -35,7 +35,7 @@ async def unban(interaction: discord.Interaction, user_id: str, reason: str = "N
 
         embed = discord.Embed(
             title="Unban Result",
-            description=f"✅ **{display_user}** was unbanned.",
+            description=f"✅ **{user.display_name}** was unbanned.",
             color=discord.Color.green(),
             timestamp=discord.utils.utcnow()
         )
@@ -43,7 +43,7 @@ async def unban(interaction: discord.Interaction, user_id: str, reason: str = "N
         return await interaction.response.send_message(embed=embed)
 
     except discord.Forbidden:
-        return await interaction.response.send_message("❌ Unban failed due to luck of permissions.", ephemeral=True)
+        return await interaction.response.send_message("❌ Unban failed because of luck of permissions.", ephemeral=True)
 
     except Exception as e:
         return await interaction.response.send_message(f"❌ Error happened: `{e}`", ephemeral=True)
