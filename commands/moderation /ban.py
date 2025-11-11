@@ -6,7 +6,7 @@ async def ban(interaction: discord.Interaction, user: discord.User, reason: str 
         return await interaction.response.send_message("❌ You don't have permission that can ban user.", ephemeral=True)
 
     if not interaction.guild.me.guild_permissions.moderate_members:
-        return await interaction.response.send_message("❌ Bot doesn't have permission that can kick user !", ephemeral=True)
+        return await interaction.response.send_message("❌ Bot doesn't have permission that can ban user !", ephemeral=True)
 
     # 自分自身をバンしようとしているか
     if user.id == interaction.user.id:
