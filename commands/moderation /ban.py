@@ -35,7 +35,7 @@ try:
     await interaction.guild.ban(user, reason=audit_reason)
 
     embed = discord.Embed(
-        title=f"Ban result",
+        title=f"🔨 Ban result",
         description=f"{user.display_name} was banned from server.,
         color=discord.Color.red(),
         timestamp=discord.utils.utcnow()
