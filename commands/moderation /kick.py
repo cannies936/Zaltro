@@ -26,7 +26,7 @@ async def kick(interaction: discord.Interaction, user: discord.Member, reason: s
     await interaction.guild.kick(user, reason=audit_reason)
 
     embed = discord.Embed(
-        title=f"Kick result",
+        title=f"👢 Kick result",
         description=f"{user.display_name} was kicked from server.
         color=discord.Color.yellow(),
         timestamp=discord.utils.utcnow()
