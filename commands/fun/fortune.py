@@ -1,8 +1,8 @@
 fortune_list = [
-    "The luckiest ! You will happen something happy.",
-    "Lucky, That's daily～.",
-    "Unlucky, I hope your luck will get better",
-    "Bad...  You will happen something bad..."
+    "✴️The luckiest ! You will happen something happy.",
+    "✨Lucky, That's daily～.",
+    "🟣Unlucky, I hope your luck will get better",
+    "🥹Bad...  You will happen something bad..."
     ]
 
 @bot.tree.command(name="fortune", description="Tell your fortune")
