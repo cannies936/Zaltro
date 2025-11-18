@@ -2,6 +2,8 @@
 @app_commands.describe(user="User to ban", reason="reason")
 async def ban(interaction: discord.Interaction, user: discord.User, reason: str = "No reason was given."):
 
+member = interaction.guild.get_member(user.id)
+
     if not interaction.user.guild_permissions.moderate_members:
         return await interaction.response.send_message("❌ You don't have permission to ban user.", ephemeral=True)
 
