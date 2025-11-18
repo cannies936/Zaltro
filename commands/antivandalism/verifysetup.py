@@ -17,22 +17,22 @@ class VerifyButton(discord.ui.View):
         guild_id = str(interaction.guild.id)
 
         if guild_id not in verify_config:
-            return await interaction.response.send_message("❌ このサーバーでは認証設定がされていません。", ephemeral=True)
+            return await interaction.response.send_message("❌ This server doesn't set up verification", ephemeral=True)
 
         method = verify_config[guild_id]["method"]
 
-        await interaction.response.send_message("✅ DMを確認してください！", ephemeral=True)
+        await interaction.response.send_message("✅ Check your direct message !", ephemeral=True)
 
         try:
             dm = await interaction.user.create_dm()
 
             if method == "image":
                 code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
-                await dm.send(f"🖼 **画像認証**\n以下のコードを入力してください:\n```\n{code}\n```")
+                await dm.send(f"🔑 **Code Verification**\nAnswers this:\n```\n{code}\n```")
             else:
                 a, b = random.randint(1, 9), random.randint(1, 9)
                 code = str(a + b)
-                await dm.send(f"🧮 **計算認証**\n以下を答えてください:\n```\n{a} + {b} = ?\n```")
+                await dm.send(f"🧮 **Calc Verification**\nAnswer this:\n```\n{a} + {b} = ?\n```")
 
             def check(m):
                 return m.author == interaction.user and m.channel == dm
@@ -42,19 +42,19 @@ class VerifyButton(discord.ui.View):
             if response.content.strip() == code:
                 role = interaction.guild.get_role(verify_config[guild_id]["role_id"])
                 await interaction.user.add_roles(role)
-                await dm.send("✅ 認証成功！ロールが付与されました！")
+                await dm.send("✅ Verification sucessed !")
             else:
-                await dm.send("❌ Verification failed。")
+                await dm.send("❌ Verification failed.")
 
         except discord.Forbidden:
             await interaction.response.send_message("❌ DM is denied,", ephemeral=True)
 
 # ------------------- verifysetup -------------------
-@bot.tree.command(name="verifysetup", description="認証設定を行い、認証ボタンを設置します")
-@app_commands.describe(role="認証成功時に付与するロール", method="認証方式 (image / calc)")
+@bot.tree.command(name="verifysetup", description="Set Verification and Verify button")
+@app_commands.describe(role="Given role when verification sucseed", method="Verification method (code / calc)")
 async def verifysetup(interaction: discord.Interaction, role: discord.Role, method: str):
-    if method not in ["image", "calc"]:
-        return await interaction.response.send_message("認証方法は `image` または `calc` を指定してください。", ephemeral=True)
+    if method not in ["code", "calc"]:
+        return await interaction.response.send_message("Verification method is chosen`code` or `calc` ", ephemeral=True)
 
     verify_config[str(interaction.guild.id)] = {
         "role_id": role.id,
@@ -63,14 +63,14 @@ async def verifysetup(interaction: discord.Interaction, role: discord.Role, meth
     save_config()
 
     embed = discord.Embed(
-        title="🔐 認証が必要です",
-        description="下のボタンを押して認証を完了してください。",
+        title="🔐 Need verification",
+        description="Press button and Verify",
         color=0x00bfff
     )
-    embed.add_field(name="付与ロール", value=role.mention, inline=False)
-    embed.add_field(name="認証方式", value="🖼 画像認証" if method == "image" else "🧮 Calc verification", inline=False)
+    embed.add_field(name="Given role", value=role.mention, inline=False)
+    embed.add_field(name="verification method", value=" 🔑 Code Verification" if method == "code" else "🧮 Calc verification", inline=False)
 
-    await interaction.response.send_message("✅ 設定完了！認証ボタンを設置しました。", ephemeral=True)
+    await interaction.response.send_message("✅ Setting completed !", ephemeral=True)
     await interaction.channel.send(embed=embed, view=VerifyButton())
 
 # 
