@@ -9,7 +9,6 @@ from discord import app_commands
 from typing import Optional
 from collections import defaultdict, deque
 import time
-import yt_dlp
 import aiohttp
 
 # ========================
@@ -81,9 +80,11 @@ async def on_ready():
         print(f'Bot ID: {bot.user.id}')
         print('ボットが準備完了です！')
 
-
-# ==============================================
-# Bot 起動
-# ==============================================
-token = "YOUR_BOT_TOKEN"
-bot.run(token)
+if __name__ == '__main__':
+    # 環境変数からトークンを取得
+    token = os.getenv('DISCORD_BOT_TOKEN')
+    if token:
+        bot.run(token)
+    else:
+        print("❌ DISCORD_BOT_TOKENが設定されていません")
+        print("環境変数にDiscordボットのトークンを設定してください")
