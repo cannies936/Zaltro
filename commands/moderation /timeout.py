@@ -30,7 +30,7 @@ async def timeout(interaction: discord.Interaction, user: discord.Member, second
 
         embed = discord.Embed(
             title="⏳ Timed out result",
-            description=f"{user.mention} was timed out for **{minutes} seconds.** ",
+            description=f"{user.mention} was timed out for **{seconds} seconds.** ",
             color=discord.Color.orange()
         )
 
