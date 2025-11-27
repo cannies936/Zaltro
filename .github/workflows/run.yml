@@ -23,4 +23,10 @@ jobs:
           python-version: '3.11.2'
           architecture: 'x64'
 
-      - run: pip install discord.py
+      - run: pip install -U pip
+
+      - run: pip install pynacl
+
+      - run: pip install discord.py[voice]
+
+      - run: pip install yt-dlp
