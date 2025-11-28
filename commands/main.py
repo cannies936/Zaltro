@@ -14,7 +14,7 @@ import aiohttp
 # ========================
 # Google Apps Script URL
 # ========================
-GAS_URL = "https://script.google.com/macros/s/XXXXXXX/exec"  # ← 必ず自分のURLへ変更
+GAS_URL = "https://script.google.com/macros/s/AKfycbwJ_NbRUEbmY43YYDQEUyX1uuJLXaiN00x23UMY7B3GKh6pzkRpEZMiV34FQEyJSf85/exec"  # ← 必ず自分のURLへ変更
 
 # --- インテント設定（必須） ---
 intents = discord.Intents.default()
