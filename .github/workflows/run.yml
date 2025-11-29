@@ -25,8 +25,12 @@ jobs:
 
       - run: pip install -U pip
 
-      - run: pip install pynacl
+      - run: pip install opus
 
-      - run: pip install discord.py[voice]
+      - run: pip install FFmpeg
+
+      - run: pip install libopus      
 
       - run: pip install yt-dlp
+
+      - run: pip install discord.py[voice]
