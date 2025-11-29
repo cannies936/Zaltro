@@ -30,3 +30,8 @@ jobs:
       - run: pip install yt-dlp
 
       - run: pip install discord.py[voice]
+
+      - name: Run bot
+  env:
+      DISCORD_BOT_TOKEN: $ {{ secrets.DISCORD_BOT_TOKEN}}
+  run: python main.py
