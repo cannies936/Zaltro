@@ -1,12 +1,8 @@
 CONFIG_FILE = "auditlog_config.json"
 
-intents = discord.Intents.default()
-intents.guilds = True
-intents.invites = True
-bot = discord.Client(intents=intents)
-tree = app_commands.CommandTree(bot)
 # 監査ログ送信チャンネルを管理
 config = {}
+check_audit_logs.start()
 
 # 設定読み込み
 if os.path.exists(CONFIG_FILE):
