@@ -23,7 +23,6 @@ intents.message_content = True
 intents.guilds = True      # サーバー参加・退出イベント用
 intents.members = True     # メンバー情報取得
 intents.invites = True
-intents.voice_sates = True
 
 # Discordボット設定
 bot = commands.Bot(command_prefix='/', intents=intents)
