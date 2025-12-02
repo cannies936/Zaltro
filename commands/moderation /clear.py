@@ -1,3 +1,7 @@
+class clear(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @bot.tree.command(name="clear", description="Delete message")
 @app_commands.describe(
     amount="message to delete（1〜500）",
@@ -40,3 +44,6 @@ async def clear(
         f"🧼  **{len(deleted)}** messeges were deleted.",
         ephemeral=True
     )
+
+async def setup(bot):
+    await bot.add_cog(clear(bot))
