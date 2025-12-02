@@ -1,3 +1,7 @@
+class kick(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @bot.tree.command(name="kick", description="Kick the user from server")
 @app_commands.describe(user="user to kick", reason="reason")
 async def kick(interaction: discord.Interaction, user: discord.Member, reason: str = "No reason was given."):
@@ -38,3 +42,6 @@ async def kick(interaction: discord.Interaction, user: discord.Member, reason: s
         await interaction.response.send_message("❌ You failed to kick because of lack of permission.", ephemeral=True)
     except Exception as e:
         await interaction.response.send_message(f"❌ Error happened.: `{e}`", ephemeral=True)
+
+async def setup(bot):
+    await bot.add_cog(kick(bot))
