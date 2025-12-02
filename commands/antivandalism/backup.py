@@ -1,3 +1,7 @@
+class backup(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @bot.tree.command(name="backup", description="creating backup file and use it to restore")
 @app_commands.describe(action="create = crate backup / restore = restore", file = if restoreing send backup file")
 async def backup(interaction: discord.Interaction, action: str, file: discord.Attachment = None):
@@ -91,3 +95,6 @@ async def backup(interaction: discord.Interaction, action: str, file: discord.At
 
     else:
         await interaction.response.send_message("❌ Please enter `create` or `restore` in `action`", ephemeral=True)
+
+async def setup(bot):
+    await bot.add_cog(backup(bot))
