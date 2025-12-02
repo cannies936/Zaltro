@@ -1,3 +1,7 @@
+class unban(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @bot.tree.command(name="unban", description="Unban user from server")
 @app_commands.describe(user="User to unban", reason="Reason for unban")
 async def unban(interaction: discord.Interaction, user_id: str, reason: str = "No reason was given."):
@@ -47,3 +51,6 @@ async def unban(interaction: discord.Interaction, user_id: str, reason: str = "N
 
     except Exception as e:
         return await interaction.response.send_message(f"❌ Error happened: `{e}`", ephemeral=True)
+
+async def setup(bot):
+    await bot.add_cog(unban(bot))
