@@ -28,4 +28,4 @@ async def leave(interaction: discord.Interaction, server_id: str):
     )
 
 async def setup(bot):
-    await bot.add_cog(Ping(bot))
+    await bot.add_cog(leave(bot))
