@@ -1,3 +1,7 @@
+class delete_invite(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @bot.tree.command(name="delete_invite", description="Delete a invite from this server")
 @app_commands.describe(invite_code="Invite code to delete (example: abc123)")
 async def delete_invite(interaction: discord.Interaction, invite_code: str):
@@ -51,3 +55,6 @@ async def delete_invite(interaction: discord.Interaction, invite_code: str):
             f"❌ Error occurred: `{e}`",
             ephemeral=True
         )
+
+async def setup(bot):
+    await bot.add_cog(delete_invite(bot))
