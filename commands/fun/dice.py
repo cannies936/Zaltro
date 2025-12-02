@@ -1,3 +1,7 @@
+class dice(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @bot.tree.command(name="dice", description="roll the dice")
 @app_commands.describe(sides="dice_notations")
 async def dice(interaction: discord.Interaction, sides: int = 6):
@@ -7,3 +11,6 @@ async def dice(interaction: discord.Interaction, sides: int = 6):
 
     result = random.randint(1, sides)
     await interaction.response.send_message(f"🎲 **{sides}dice_notations result:{result}**")
+
+async def setup(bot):
+    await bot.add_cog(dice(bot))
