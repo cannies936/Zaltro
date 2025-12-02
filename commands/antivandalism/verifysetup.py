@@ -49,6 +49,10 @@ class VerifyButton(discord.ui.View):
         except discord.Forbidden:
             await interaction.response.send_message("❌ DM is denied,", ephemeral=True)
 
+class verifysetup(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 # ------------------- verifysetup -------------------
 @bot.tree.command(name="verifysetup", description="Set Verification and Verify button")
 @app_commands.describe(role="Given role when verification sucseed", method="Verification method (code / calc)")
@@ -73,4 +77,5 @@ async def verifysetup(interaction: discord.Interaction, role: discord.Role, meth
     await interaction.response.send_message("✅ Setting completed !", ephemeral=True)
     await interaction.channel.send(embed=embed, view=VerifyButton())
 
-# 
+async def setup(bot):
+    await bot.add_cog(verifysetup(bot))
