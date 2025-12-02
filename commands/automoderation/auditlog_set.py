@@ -14,6 +14,10 @@ def save_config():
     with open(CONFIG_FILE, "w") as f:
         json.dump(config, f, indent=4)
   
+class auditlog_set(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 # -----------------------------
 # /auditlog_set コマンド
 # -----------------------------
@@ -64,4 +68,6 @@ async def check_audit_logs():
 
         last_checked[guild_id] = datetime.utcnow()
 
+async def setup(bot):
+    await bot.add_cog(auditlog_set(bot))
 
