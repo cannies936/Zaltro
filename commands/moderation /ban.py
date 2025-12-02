@@ -1,3 +1,7 @@
+class ban(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @bot.tree.command(name="ban", description="Ban user from server")
 @app_commands.describe(user="User to ban", reason="reason")
 async def ban(interaction: discord.Interaction, user: discord.User, reason: str = "No reason was given."):
@@ -49,3 +53,6 @@ try:
         await interaction.response.send_message("❌ You failed to ban because of lack of permission.", ephemeral=True)
     except Exception as e:
         await interaction.response.send_message(f"❌ Error happened.: `{e}`", ephemeral=True)
+
+async def setup(bot):
+    await bot.add_cog(ban(bot))
