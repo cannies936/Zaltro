@@ -1,3 +1,7 @@
+class serverinfo(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @bot.tree.command(name="serverinfo", description="Show server infomation")
 async def server_info(interaction: discord.Interaction):
 
@@ -83,3 +87,6 @@ async def server_info(interaction: discord.Interaction):
     embed.set_footer(text=f"intonation geter: {interaction.user}", icon_url=interaction.user.display_avatar.url)
 
     await interaction.response.send_message(embed=embed)
+
+async def setup(bot):
+    await bot.add_cog(serverinfo(bot))
