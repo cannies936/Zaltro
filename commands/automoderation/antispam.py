@@ -41,6 +41,10 @@ async def whitelist_remove_channel(interaction: discord.Interaction, channel: di
 
 bot.tree.add_command(whitelist_group)
 
+class antispam(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 # ------------------------------
 # Anti-Spam Toggle
 # ------------------------------
@@ -93,3 +97,6 @@ async def on_message(message: discord.Message):
                     await message.channel.send("❌ Could not timeout user (missing permissions).")
 
     await bot.process_commands(message)
+
+async def setup(bot):
+    await bot.add_cog(antispam(bot))
