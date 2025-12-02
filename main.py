@@ -74,8 +74,20 @@ async def on_guild_remove(guild):
 # ==============================================
 # Bot 準備完了イベント
 # ==============================================
+
+async def load_commands():
+    for filename in os.listdir("./commands"):
+        if filename.endswith(".py"):
+            try:
+                await bot.load_extension(f"commands.{filename[:-3]}")
+                print(f"Loaded: {filename}")
+            except Exception as e:
+                print(f"Failed to load {filename}: {e}")
+
+
 @bot.event
 async def on_ready():
+    await load_commands()  
     await bot.tree.sync()
     if bot.user:
         print(f'{bot.user} としてログインしました！')
