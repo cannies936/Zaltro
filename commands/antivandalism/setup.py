@@ -13,12 +13,16 @@ async def restrict_channel_permissions(channel: discord.abc.GuildChannel, role: 
     except Exception as e:
         print(f"[Error] {channel.name}: {e}")
 
+class settingup(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 # ---------- 統合コマンド ----------
 @bot.tree.command(
-    name="setup",
+    name="settingup",
     description="set up for antivandarism"
 )
-async def create_blocked_role(interaction: discord.Interaction):
+async def settingup(interaction: discord.Interaction):
     # 管理者チェック
     if not interaction.user.guild_permissions.administrator:
         return await interaction.response.send_message("❌ This command can be used by admistor", ephemeral=True)
@@ -51,3 +55,6 @@ async def on_guild_channel_create(channel):
     role = discord.utils.get(guild.roles, name="blocked")
     if role:
         await restrict_channel_permissions(channel, role)
+
+async def setup(bot):
+    await bot.add_cog(settingup(bot))
