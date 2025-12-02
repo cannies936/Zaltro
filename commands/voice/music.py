@@ -35,6 +35,11 @@ def get_player(guild_id):
 # ─────────────────────────────
 # ▼ /play — YouTube再生
 # ─────────────────────────────
+
+class play(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @tree.command(name="play", description="Play music")
 @app_commands.describe(url="Link of music")
 async def play(interaction: discord.Interaction, url: str):
@@ -89,10 +94,17 @@ async def start_playing(guild, vc):
         while vc.is_playing():
             await asyncio.sleep(1)
 
+async def setup(bot):
+    await bot.add_cog(play(bot))
 
 # ─────────────────────────────
 # ▼ /skip — 次の曲へ
 # ─────────────────────────────
+
+class skip(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @tree.command(name="skip", description="skip the sound")
 async def skip(interaction: discord.Interaction):
     vc = interaction.guild.voice_client
@@ -102,10 +114,17 @@ async def skip(interaction: discord.Interaction):
     vc.stop()
     await interaction.response.send_message("⏭ skipped")
 
+async def setup(bot):
+    await bot.add_cog(skip(bot))
 
 # ─────────────────────────────
 # ▼ /stop — 全停止
 # ─────────────────────────────
+
+class stop(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @tree.command(name="stop", description="stop sound")
 async def stop(interaction: discord.Interaction):
     vc = interaction.guild.voice_client
@@ -121,10 +140,17 @@ async def stop(interaction: discord.Interaction):
     await vc.disconnect()
     await interaction.response.send_message("⏹ This bot left")
 
+async def setup(bot):
+    await bot.add_cog(stop(bot))
 
 # ─────────────────────────────
 # ▼ /queue — キューを表示
 # ─────────────────────────────
+
+class queue(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @tree.command(name="queue", description="Show queue")
 async def queue(interaction: discord.Interaction):
     player = get_player(interaction.guild_id)
@@ -144,10 +170,17 @@ async def queue(interaction: discord.Interaction):
 
     await interaction.response.send_message(txt)
 
+async def setup(bot):
+    await bot.add_cog(queue(bot))
 
 # ─────────────────────────────
 # ▼ /loop — ループ設定
 # ─────────────────────────────
+
+class loop(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @tree.command(name="loop", description="Change loop setting")
 @app_commands.describe(mode="off / one / all")
 async def loop(interaction: discord.Interaction, mode: str):
@@ -159,3 +192,6 @@ async def loop(interaction: discord.Interaction, mode: str):
     player.loop_mode = mode
 
     await interaction.response.send_message(f"🔁 Loop mode: **{mode}** ")
+
+async def loop(bot):
+    await bot.add_cog(Ping(bot))
