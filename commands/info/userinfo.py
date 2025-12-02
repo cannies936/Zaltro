@@ -1,3 +1,7 @@
+class userinfo(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @bot.tree.command(name="userinfo", description="Show user infomation")
 @app_commands.describe(user="User you want to check")
 async def userinfo(interaction: discord.Interaction, user: discord.User | None = None):
@@ -31,3 +35,6 @@ async def userinfo(interaction: discord.Interaction, user: discord.User | None =
     )
 
     await interaction.response.send_message(embed=embed)
+
+async def setup(bot):
+    await bot.add_cog(userinfo(bot))
