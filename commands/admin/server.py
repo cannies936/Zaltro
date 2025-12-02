@@ -1,5 +1,9 @@
 DEVELOPER_ID = 1362035197255749884  
 
+class server(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @bot.tree.command(name="servers", description=("check server bot joins")
 async def servers(interaction: discord.Interaction):
 
@@ -31,4 +35,6 @@ async def servers(interaction: discord.Interaction):
     await interaction.response.send_message(
         f"👋 Bot left from server **{guild.name}**（ID: `{guild.id}`） ",
         ephemeral=True
-    
+
+async def setup(bot):
+    await bot.add_cog(server(bot))    
