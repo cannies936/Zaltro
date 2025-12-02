@@ -1,3 +1,7 @@
+class leave(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @bot.tree.command(name="leave", description="Making bot left ")
 @app_commands.describe(server_id="Server ID")
 async def leave(interaction: discord.Interaction, server_id: str):
@@ -22,3 +26,6 @@ async def leave(interaction: discord.Interaction, server_id: str):
         f"👋 Bot left from server **{guild.name}**（ID: `{guild.id}`） ",
         ephemeral=True
     )
+
+async def setup(bot):
+    await bot.add_cog(Ping(bot))
