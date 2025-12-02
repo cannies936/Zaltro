@@ -1,3 +1,7 @@
+class timeout(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @bot.tree.command(name="timeout", description="Timed out for user ")
 @app_commands.describe(
     user="user to be timed out",
@@ -40,3 +44,6 @@ async def timeout(interaction: discord.Interaction, user: discord.Member, second
         await interaction.response.send_message("❌ You failed to be timed out because of lack of permission.", ephemeral=True)
     except Exception as e:
         await interaction.response.send_message(f"❌ Error happened: `{e}`", ephemeral=True)
+
+async def setup(bot):
+    await bot.add_cog(timeout(bot))
