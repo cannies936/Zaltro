@@ -4,6 +4,10 @@ blocked_roles_backup = defaultdict(lambda: defaultdict(list))
 # 自動解除スケジュール用: {guild_id: {user_id:解除時刻}}
 blocked_timers = defaultdict(lambda: defaultdict(datetime))
 
+class warn(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 # --- /warn コマンド ---
 @bot.tree.command(
     name="warn",
@@ -118,3 +122,6 @@ async def unblock(interaction: discord.Interaction, user: discord.Member):
     blocked_timers[guild_id].pop(user_id, None)
 
     await interaction.response.send_message(f"✅ {user} was restored")
+
+async def setup(bot):
+    await bot.add_cog(warn(bot))
