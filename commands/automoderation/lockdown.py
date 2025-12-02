@@ -1,6 +1,10 @@
 # サーバーごとのロックダウン状態保存
 lockdown_mode = {}  # { guild_id: "ban" | "kick" | "none" }
 
+class lockdown(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @bot.tree.command(name="lockdown", description="Action ban / kick / none")
 @app_commands.describe(mode="coice ban / kick / none ")
 async def lockdown(interaction: discord.Interaction, mode: str):
@@ -43,3 +47,6 @@ async def on_member_join(member: discord.Member):
         print("⚠️ 権限不足でBAN/KICKできませんでした")
     except Exception as e:
         print(f"❌ エラー: {e}")
+
+async def setup(bot):
+    await bot.add_cog(lockdown(bot))
