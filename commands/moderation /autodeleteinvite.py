@@ -1,3 +1,7 @@
+class autodeleteinvite(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
 @bot.tree.command(name="autodeleteinvite", description="招待作成時の自動削除をオン/オフします。")
 @app_commands.describe(state="true でオン、false でオフにします。")
 async def deleteinvite(interaction: discord.Interaction, state: bool):
@@ -22,3 +26,6 @@ async def on_invite_create(invite: discord.Invite):
             print(f"🔸 招待を自動削除しました: {invite.code}")
         except Exception as e:
             print(f"❌ 招待削除エラー: {e}")
+
+async def setup(bot):
+    await bot.add_cog(autodeleteinvite(bot))
