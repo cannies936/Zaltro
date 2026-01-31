@@ -19,7 +19,7 @@ async def disable_apps(interaction: discord.Interaction, target_role: discord.Ro
     overwrite.use_external_apps = False
     for channel in interaction.guild.channels:
       await interaction.channel.set_permissions(target_role, overwrite=overwrite)
-      await asyncio.sleep(2)
+      await asyncio.sleep(0.5)
       if overwrite.use_external_apps == False:
           return
       after_embed = discord.Embed(
