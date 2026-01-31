@@ -14,7 +14,7 @@ async def disable_apps(interaction: discord.Interaction, target_role: discord.Ro
         description="実行中…",
         color=discord.Color.green() # 色の設定
     )
-    await interaction.response.send_message(before_embed, ephemeral=True)
+    await interaction.response.send_message(before_embed=before_embed, ephemeral=True)
     overwrite = discord.PermissionOverwrite()
     overwrite.use_external_apps = False
     for channel in interaction.guild.channel():
