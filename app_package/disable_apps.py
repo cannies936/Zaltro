@@ -8,7 +8,7 @@ bot = bot.tree
 
 @bot.tree.command(name="disable_apps", description="特定のロールから外部アプリの使用権限を取り除きます")
 @app_commands.discribe(target_role="対象のロール")
-async def disable_apps(interaction: discord.Interaction, role: discord.Role):
+async def disable_apps(interaction: discord.Interaction, target_role: discord.Role):
     before_embed = discord.Embed(
         title="",
         description="実行中…",
@@ -18,7 +18,7 @@ async def disable_apps(interaction: discord.Interaction, role: discord.Role):
     overwrite = discord.PermissionOverwrite()
     overwrite.use_external_apps = False
     for channel in interaction.guild.channel():
-      await interaction.channel.set_permissions(role, overwrite=overwrite)
+      await interaction.channel.set_permissions(target_role, overwrite=overwrite)
       await asyncio.sleep(2)
       if overwrite.use_external_apps == False
           return
