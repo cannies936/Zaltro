@@ -14,7 +14,7 @@ async def disable_apps(interaction: discord.Interection, role: discord.Roles)
         description="実行中…",
         color=discord.Color.green() # 色の設定
     )
-    await interaction.response.send_message(before_embed)
+    await interaction.response.send_message(before_embed, ephemeral=True)
     overwrite = discord.PermissionOverwrite()
     overwrite.use_external_apps = False
     for channel in interaction.guild.channel():
@@ -27,4 +27,4 @@ async def disable_apps(interaction: discord.Interection, role: discord.Roles)
         description="完了しました",
         color=discord.Color.green() # 色の設定
     )
-    await msg.edit(before_embed=after_embed)
+    await msg.edit(before_embed=after_embed, ephemeral=True)
