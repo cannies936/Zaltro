@@ -6,25 +6,46 @@ intents = discord.Intents.default()
 intents.guilds = True
 tree = bot.tree
 
-@bot.tree.command(name="disable_apps", description="特定のロールから外部アプリの使用権限を取り除きます")
+@bot.tree.command(
+    name="disable_apps",description="特定のロールから外部アプリの使用権限を取り除きます"
+)
 @app_commands.describe(target_role="対象のロール")
 async def disable_apps(interaction: discord.Interaction, target_role: discord.Role):
-    before_embed = discord.Embed(
-        title="",
-        description="実行中…",
-        color=discord.Color.green() # 色の設定
+
+    await interaction.response.send_message(
+        embed=discord.Embed(
+            description="実行中…",
+            color=discord.Color.green()
+        ),
+        ephemeral=True
     )
-    await interaction.response.send_message(embed=before_embed, ephemeral=True)
-    overwrite = discord.PermissionOverwrite()
-    overwrite.use_external_apps = False
+
+    changed = 0
+    skipped = 0
+
     for channel in interaction.guild.channels:
-      await interaction.channel.set_permissions(target_role, overwrite=overwrite)
-      await asyncio.sleep(2)
-      if overwrite.use_external_apps == False:
-          return
-      after_embed = discord.Embed(
-        title="",
-        description="完了しました",
-        color=discord.Color.green() # 色の設定
+        current = channel.overwrites_for(target_role)
+
+        if current.use_external_apps is False:
+            skipped += 1
+            continue
+
+        current.use_external_apps = False
+
+        try:
+            await channel.set_permissions(target_role, overwrite=current)
+            changed += 1
+            await asyncio.sleep(0.5)
+        except Exception as e:
+            print(f"失敗: {channel.name} -> {e}")
+
+    await interaction.edit_original_response(
+        embed=discord.Embed(
+            description=(
+                "完了しました\n\n"
+                f"✅ 変更: {changed} チャンネル\n"
+                f"⏭️ スキップ: {skipped} チャンネル"
+            ),
+            color=discord.Color.green()
+        )
     )
-    await interaction.edit_original_response(embed=after_embed, ephemeral=True)
