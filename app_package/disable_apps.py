@@ -1,16 +1,17 @@
+import discord
 from discord import app_commands
 from discord.ext import commands
 import asyncio
 
-intents = discord.Intents.default()
-intents.guilds = True
-tree = bot.tree
+class GeneralCog(commands.Cog):
+    def __init__(self, bot: commands.Bot):
+        self.bot = bot
 
-@bot.tree.command(
+@app_commands.command(
     name="disable_apps",description="特定のロールから外部アプリの使用権限を取り除きます"
 )
 @app_commands.describe(target_role="対象のロール")
-async def disable_apps(interaction: discord.Interaction, target_role: discord.Role):
+async def disable_apps(self, interaction: discord.Interaction, target_role: discord.Role):
 
     await interaction.response.send_message(
         embed=discord.Embed(
