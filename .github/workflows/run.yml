@@ -24,11 +24,8 @@ jobs:
           architecture: 'x64'
 
       - run: pip install -U pip
-
       - run: pip install Pynacl
-    
       - run: pip install yt-dlp
-
       - run: pip install discord.py[voice]
 
       - name: Run bot
