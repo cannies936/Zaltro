@@ -1,3 +1,4 @@
+import discord
 from discord import app_commands
 from discord.ext import commands
 import asyncio
@@ -6,11 +7,15 @@ intents = discord.Intents.default()
 intents.guilds = True
 tree = bot.tree
 
-@bot.tree.command(
+class GeneralCog(commands.Cog):
+    def __init__(self, commands.Cog):
+        self.bot = bot
+
+@app_commands.command(
     name="disable_apps",description="特定のロールからeveryoneのメンション権限を取り除きます"
 )
 @app_commands.describe(target_role="対象のロール")
-async def disable_apps(interaction: discord.Interaction, target_role: discord.Role):
+async def disable_apps(self, interaction: discord.Interaction, target_role: discord.Role):
 
     await interaction.response.send_message(
         embed=discord.Embed(
