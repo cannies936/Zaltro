@@ -7,7 +7,7 @@ intents = discord.Intents.default()
 intents.guilds = True
 tree = bot.tree
 
-class GeneralCog(commands.Cog):
+class PermCog(commands.Cog):
     def __init__(self, commands.Cog):
         self.bot = bot
 
