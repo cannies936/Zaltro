@@ -3,7 +3,7 @@ from discord import app_commands
 from discord.ext import commands
 import asyncio
 
-class GeneralCog(commands.Cog):
+class PermCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
