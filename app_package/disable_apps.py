@@ -3,8 +3,14 @@ from discord import app_commands
 from discord.ext import commands
 import asyncio
 
+intents = discord.Intents.default()
+intents.guilds = True
+
+bot = commands.Bot(command_prefix="/", intents=intents) 
+tree = bot.tree
+
 class PermCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot):
         self.bot = bot
 
 @app_commands.command(
