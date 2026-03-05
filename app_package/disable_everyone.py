@@ -5,10 +5,12 @@ import asyncio
 
 intents = discord.Intents.default()
 intents.guilds = True
+
+bot = commands.Bot(command_prefix="/", intents=intents)
 tree = bot.tree
 
 class PermCog(commands.Cog):
-    def __init__(self, commands.Cog):
+    def __init__(self, bot):
         self.bot = bot
 
 @app_commands.command(
