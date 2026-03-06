@@ -15,7 +15,9 @@ jobs:
           python-version: '3.11'
 
       - run: python -m pip install -U pip
-      - run: pip install -r requirements.txt
+      - run: pip install -r
+ requirements.txt
+      - run: ls -R 
 
       - name: Run Bot
         env:
