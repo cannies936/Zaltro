@@ -5,13 +5,13 @@ import asyncio
 
 intents = discord.Intents.default()
 
-bot = commands.Bot(command_prefix='/', intents=intents)
-
 class MyBot(commands.Bot):
     async def setup_hook(self):
         for cog in os.listdir("app_package"):
             if cog.endswith(".py"):
                 await self.load_extension(f"app_package.{cog[:-3]}")
+
+bot = MyBot(command_prefix='/', intents=intents)
 
 if __name__ == '__main__':
     # 環境変数からトークンを取得
