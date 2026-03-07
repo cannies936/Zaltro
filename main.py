@@ -3,6 +3,8 @@ from discord.ext import commands
 import os
 import asyncio
 
+bot = commands.Bot(command_prefix='/', intents=intents)
+
 class MyBot(commands.Bot):
     async def setup_hook(self):
         for cog in os.listdir("app_package"):
