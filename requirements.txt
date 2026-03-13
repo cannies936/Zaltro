@@ -4,6 +4,6 @@ capcha
 flask
 aiohttp
 aiosqlite
-requests
+ipwhois
 discord.py[voice]>=2.0.0
 
