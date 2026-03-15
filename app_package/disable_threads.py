@@ -57,3 +57,7 @@ async def disable_threads(self, interaction: discord.Interaction, target_role: d
             color=discord.Color.green()
         )
     )
+
+
+async def setup(bot):
+    await bot.add_cog(PermCog(bot))
