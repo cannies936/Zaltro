@@ -56,3 +56,6 @@ async def disable_apps(self, interaction: discord.Interaction, target_role: disc
             color=discord.Color.green()
         )
     )
+
+async def setup(bot):
+    await bot.add_cog(PermCog(bot))
