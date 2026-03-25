@@ -6,4 +6,3 @@ aiohttp
 aiosqlite
 ipwhois
 discord.py[voice]>=2.0.0
-
