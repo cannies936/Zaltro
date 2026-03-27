@@ -9,7 +9,7 @@ intents.guilds = True
 bot = commands.Bot(command_prefix="/", intents=intents) 
 tree = bot.tree
 
-class PermCog(commands.Cog):
+class PermCogApp(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -57,3 +57,6 @@ class PermCog(commands.Cog):
                 color=discord.Color.green()
             )
         )
+
+async def setup(bot):
+    await bot.add_cog(PermCogApp(bot))
