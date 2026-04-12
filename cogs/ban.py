@@ -24,4 +24,4 @@ class BanCog(commands.Cog):
             embed.add_field(name="Reason", value="{audit_reason}", inline=False)
             await interaction.response.send_message(embed=embed)
 async def setup(bot):
-    await bot.add_cog(KickCog(bot))
+    await bot.add_cog(BanCog(bot))
