@@ -13,7 +13,7 @@ class BanCog(commands.Cog):
         @app_commands.describe(user="バンするユーザー", reason="バンする理由")
         async def kick(self, interaction: discord.Interaction, user: discord.User, reason: str = "理由が入力されてません")
             audit_reason = f"実行者: {interaction.user} | 理由: {reason}"     
-            if user is Member:
+            if isinstance(user, Member):
                await interaction.guild.ban(user, reason=audit_reason)
             else:
               user = get_user(user)
