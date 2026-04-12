@@ -11,9 +11,14 @@ class KickCog(commands.Cog):
         self.bot = bot
         @app_commands.command(name="kick",description="ユーザーをサーバーからキックします")
         @app_commands.describe(user="キックするユーザー", reason="キックする理由")
-        async def kick(self, interaction: discord.Interaction, user: discord.Member, reason: str)
-                    embed=discord.Embed(title="Kick Result:", color=2AC11C)
-                    embed.add_field(name="Kick user", value="undefined", inline=False)
-                    embed.add_field(name="Reason", value="undefined", inline=False)
-                    await interaction.responce.send_message(embed=embed)
+        async def kick(self, interaction: discord.Interaction, user: discord.Member, reason: str = "理由が入力されてません")
+            audit_reason = f"実行者: {interaction.user} | 理由: {reason}"     
+            await interaction.guild.kick(user, reason=audit_reason)
+            embed=discord.Embed(title="Kick Result:", color=2AC11C)
+            embed.add_field(name="Kick user", value="{user.display_name}({user.id})", inline=False)
+            embed.add_field(name="Modertor", value="", inline=False)
+            embed.add_field(name="Reason", value="{audit_reason}", inline=False)
+            await interaction.response.send_message(embed=embed)
             
+async def setup(hook)
+    await bot.cog_add(KickCog)
