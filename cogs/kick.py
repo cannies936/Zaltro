@@ -20,5 +20,5 @@ class KickCog(commands.Cog):
             embed.add_field(name="Reason", value="{audit_reason}", inline=False)
             await interaction.response.send_message(embed=embed)
             
-async def setup(hook)
-    await bot.cog_add(KickCog)
+async def setup(bot):
+    await bot.add_cog(KickCog(bot))
