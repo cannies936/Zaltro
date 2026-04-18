@@ -13,20 +13,20 @@ class PermCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="disable_threads",description="特定のロールからスレッドの作成権限を取り除きます")
+    #@app_commands.command(name="disable_threads",description="特定のロールからスレッドの作成権限を取り除きます")
     @app_commands.describe(target_role="対象のロール")
-    async def disable_threads(self, interaction: discord.Interaction, target_role: discord.Role):
+    #async def disable_threads(self, interaction: discord.Interaction, target_role: discord.Role):
 
-        await interaction.response.send_message(
+        #await interaction.response.send_message(
         embed=discord.Embed(description="実行中…",color=discord.Color.green()),ephemeral=True)
 
         changed = 0
         skipped = 0
 
-        for channel in interaction.guild.channels:
+        #for channel in interaction.guild.channels:
             current = channel.overwrites_for(target_role)
 
-            if current.create_private_threads is False and current.create_public_threads is False:
+            #if current.create_private_threads is False and current.create_public_threads is False:
                 skipped += 1
                 continue
 
