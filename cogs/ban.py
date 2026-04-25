@@ -11,7 +11,7 @@ class BanCog(commands.Cog):
         self.bot = bot
     @app_commands.command(name="ban",description="ユーザーをサーバーからバンします")
     @app_commands.describe(user="バンするユーザー", reason="バンする理由", days="削除する日数")
-    async def ban(self, interaction: discord.Interaction, user: discord.User, reason: str = "理由が入力されてません", days: int)
+    async def ban(self, interaction: discord.Interaction, user: discord.User, reason: str = "理由が入力されてません", days: int):
         try:
             audit_reason = f"実行者: {interaction.user} | 理由: {reason}"     
             if isinstance(user, Member):
