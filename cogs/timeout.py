@@ -18,6 +18,7 @@ class TimeoutCog(commands.Cog):
         await member.timeout(duratrion, audit_reason)
         embed = discord.Embed(title="Timeout Result:", color=0x2AC11C)
         embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
+        embed.add_field(name="Duration", value=f"", inline=False)
         embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
         embed.add_field(name="Reason", value=f"{reason}", inline=False)
-                await interaction.response.send_message(embed=embed)
+        await interaction.response.send_message(embed=embed)
