@@ -15,7 +15,7 @@ class TimeoutCog(commands.Cog):
     async def timeout(self, interaction: discord.Interaction, user: discord.Member, duration: datatime.timedelta = 30, reason: str = "理由が入力されてません"):
         duration = timedelta(seconds=duration)
         audit_reason = f"実行者: {interaction.user} | 理由: {reason}"
-        await member.timeout(duratrion audit_reason)
+        await member.timeout(duratrion, audit_reason)
         embed = discord.Embed(title="Timeout Result:", color=0x2AC11C)
         embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
         embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
