@@ -12,7 +12,7 @@ class KickCog(commands.Cog):
     @app_commands.checks.bot_has_permissions(kick_members=True)
     @app_commands.command(name="kick",description="ユーザーをサーバーからキックします")
     @app_commands.describe(user="キックするユーザー", reason="キックする理由")
-    async def kick(self, interaction: discord.Interaction, user: discord.Member, reason: str = "理由が入力されてません")    
+    async def kick(self, interaction: discord.Interaction, user: discord.Member, reason: str = "理由が入力されてません"):
         audit_reason = f"実行者: {interaction.user} | 理由: {reason}"     
         try:    
             await interaction.guild.kick(user, reason=audit_reason)
