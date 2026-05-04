@@ -9,6 +9,11 @@ tree = bot.tree
 class UnbanCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+    
+    @commands.Cog.listener()
+    async def on_ready(self):
+        await self.bot.tree.sync()
+    
     @app_commands.command(name="ban",description="ユーザーのバンを解除します")
     @app_commands.describe(user="バンを解除するユーザー", reason="バンを解除する理由")
     async def unban(self, interaction: discord.Interaction, user: discord.User, reason: str = "理由が入力されてません"):
