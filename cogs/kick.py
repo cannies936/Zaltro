@@ -9,6 +9,11 @@ tree = bot.tree
 class KickCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+    
+    @commands.Cog.listener()
+    async def on_ready(self):
+        await self.bot.tree.sync()
+    
     @app_commands.checks.bot_has_permissions(kick_members=True)
     @app_commands.command(name="kick",description="ユーザーをサーバーからキックします")
     @app_commands.describe(user="キックするユーザー", reason="キックする理由")
