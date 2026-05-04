@@ -10,20 +10,11 @@ class UnbanCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     @app_commands.command(name="ban",description="ユーザーのバンを解除します")
-    @app_commands.describe(user="バンを解除するユーザー", reason="バンする理由")
-    async def ban(self, interaction: discord.Interaction, user: discord.User, reason: str = "理由が入力されてません", days: int):
+    @app_commands.describe(user="バンを解除するユーザー", reason="バンを解除する理由")
+    async def unban(self, interaction: discord.Interaction, user: discord.User, reason: str = "理由が入力されてません"):
         try:
             audit_reason = f"実行者: {interaction.user} | 理由: {reason}"     
-            if isinstance(user, Member):
-                await interaction.guild.ban(user, reason=audit_reason, delete_message_days=days)
-                embed = discord.Embed(title="Unban Result:", color=0x2AC11C)
-            　　 embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
-                embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
-                embed.add_field(name="Reason", value="{audit_reason}", inline=False)
-                await interaction.response.send_message(embed=embed)
-            else:
-                user = get_user(user)
-                await interaction.guild.unban(user, reason=audit_reason)
+            await interaction.guild.unban(user, reason=audit_reason)
             embed = discord.Embed(title="Kick Result:", color=0x2AC11C)
             embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
             embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
