@@ -10,9 +10,9 @@ tree = bot.tree
 class UntimeoutCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    @app_commands.command(name="timeout",description="ユーザーをサーバーからバンします")
-    @app_commands.describe(user="タイムアウトするユーザー", reason="タイムアウトする理由")
-    async def timeout(self, interaction: discord.Interaction, user: discord.Member, reason: str = "理由が入力されてません"):
+    @app_commands.command(name="untimeout",description="ユーザーのタイムアウトを解除します")
+    @app_commands.describe(user="タイムアウトを解除するユーザー", reason="タイムアウトを解除する理由")
+    async def untimeout(self, interaction: discord.Interaction, user: discord.Member, reason: str = "理由が入力されてません"):
         try:    
             duration = timedelta(seconds=0)
             audit_reason = f"実行者: {interaction.user} | 理由: {reason}"
@@ -33,3 +33,6 @@ class UntimeoutCog(commands.Cog):
         except: discord.app_commands.CommandInvokeError as e:
             embed = embed=discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{e}", color=0x2AC11C)
             await interaction.send_message(embed=embed, ephemeral=True)
+
+async def setup(bot):
+    await bot.add_cog(UntimeoutCog(bot))
