@@ -10,6 +10,11 @@ tree = bot.tree
 class UntimeoutCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+    
+    @commands.Cog.listener()
+    async def on_ready(self):
+        await self.bot.tree.sync()
+    
     @app_commands.command(name="untimeout",description="ユーザーのタイムアウトを解除します")
     @app_commands.describe(user="タイムアウトを解除するユーザー", reason="タイムアウトを解除する理由")
     async def untimeout(self, interaction: discord.Interaction, user: discord.Member, reason: str = "理由が入力されてません"):
