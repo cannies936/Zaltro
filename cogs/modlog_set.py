@@ -19,11 +19,11 @@ class ModlogCog(commands.Cog):
     async def modlog_set(self, interaction: discord.Interaction, channel: discord.Channel):
         interaction.responce.send_message(f"<#{channel.id}>にログを送信するようにしました")
 
-    @commands.Cog.listener()
-    async def on_kick(self, member):
-        auditlog = discord.()
-        embed = discord.Embed()
-        embed.add_field()
+        @commands.Cog.listener()
+        async def on_kick(self, member):
+            auditlog = discord.()
+            embed = discord.Embed()
+            embed.add_field()
         
 
 async def setup(bot):
