@@ -1,5 +1,5 @@
 import discord
-import discord from app_commands
+from app_commands import discord
 from discord.ext import commands
 import asyncio
 
@@ -16,11 +16,11 @@ class ModlogCog(commands.Cog):
 
     @app_commands.command(name="modlog_set",description="モデレーションログをセットします")
     @app_commands.describe(channel="モデレーションログを送信するチャンネル")
-    async def modlog_set(self, interaction: discord.Interaction, channel: discord.Channel):
-        interaction.responce.send_message(f"<#{channel.id}>にログを送信するようにしました")
+    async def modlog_set(self, interaction: discord.Interaction, channel: discord.TextChannel):
+        interaction.response.send_message(f"{channel.mention}にログを送信するようにしました")
 
         @commands.Cog.listener()
-        async def on_kick(self, member):
+        async def on_member_remove(self, member: discord.Member):
             try:    
                 audit_log = async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.kick):
                 embed = discord.Embed(title="Member Kick", color=0x2AC11C)
@@ -28,9 +28,9 @@ class ModlogCog(commands.Cog):
                 embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
                 embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
                 await channel.send(embed=embed)
-           expect: discord.DiscordExpection:
+           except: discord.DiscordException:
                 pass
-           expect: Expection:
+           except: Exception:
                 pass
 
 
