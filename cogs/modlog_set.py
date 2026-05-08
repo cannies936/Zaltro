@@ -21,10 +21,18 @@ class ModlogCog(commands.Cog):
 
         @commands.Cog.listener()
         async def on_kick(self, member):
-            audit_log = async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.kick):
-            embed = discord.Embed(title="Member Kick", color=0x2AC11C)
-            embed.add_field()
-        
+            try:    
+                audit_log = async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.kick):
+                embed = discord.Embed(title="Member Kick", color=0x2AC11C)
+                embed.add_field(name=f"Target", value=f"{member.mention}", inline=False)
+                embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
+                embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
+                await channel.send(embed=embed)
+           expect: discord.DiscordExpection:
+                pass
+           expect: Expection:
+                pass
+
 
 async def setup(bot):
     await bot.add_cog(ModlogCog(bot))
