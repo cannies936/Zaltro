@@ -21,8 +21,8 @@ class ModlogCog(commands.Cog):
 
         @commands.Cog.listener()
         async def on_kick(self, member):
-            auditlog = discord.()
-            embed = discord.Embed()
+            audit_log = async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.kick):
+            embed = discord.Embed(title="Member Kick", color=0x2AC11C)
             embed.add_field()
         
 
