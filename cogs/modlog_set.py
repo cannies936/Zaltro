@@ -20,7 +20,7 @@ class ModlogCog(commands.Cog):
         interaction.response.send_message(f"{channel.mention}にログを送信するようにしました")
 
         @commands.Cog.listener()
-        async def on_member_remove(self, member: discord.Member):
+        async def on_member_remo(self, member: discord.Member):
             try:    
                 audit_log = async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.kick):
                 embed = discord.Embed(title="Member Kick", color=0x2AC11C)
@@ -33,6 +33,19 @@ class ModlogCog(commands.Cog):
            except: Exception:
                 pass
 
+        @commands.Cog.listener()
+        async def on_member_ban(self, member: discord.Member):
+            try:    
+                audit_log = async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.ban):
+                embed = discord.Embed(title="Member Ban", color=0x2AC11C)
+                embed.add_field(name=f"Target", value=f"{member.mention}", inline=False)
+                embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
+                embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
+                await channel.send(embed=embed)
+           except: discord.DiscordException:
+                pass
+           except: Exception:
+                pass
 
 async def setup(bot):
     await bot.add_cog(ModlogCog(bot))
