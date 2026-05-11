@@ -34,9 +34,9 @@ class ModlogCog(commands.Cog):
                 embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
                 embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
                 await channel.send(embed=embed)
-           except: discord.DiscordException:
+           except discord.DiscordException:
                 pass
-           except: Exception:
+           except Exception:
                 pass
 
         @commands.Cog.listener()
