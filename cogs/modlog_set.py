@@ -81,7 +81,7 @@ class ModlogCog(commands.Cog):
                 pass
 
         @commands.Cog.listener()
-        async def on_member_,unban(self, guild: discord.Guild, member: discord.User):
+        async def on_member_unban(self, guild: discord.Guild, member: discord.User):
             if self.log_set is None:
                 return
             try:    
