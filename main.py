@@ -5,7 +5,11 @@ import asyncio
 INITIAL_EXTENSIONS = [
     'cogs.ban',
     'cogs.kick',
-    'cogs.unban'
+    'cogs.unban',
+    'cogs.timeout',
+    'cogs.untimeout',
+    'cogs.dice',
+    'cogs.modlog_set'
 ]
 
 intents = discord.Intents.default()
