@@ -28,7 +28,7 @@ class ModlogCog(commands.Cog):
                 return
             try:    
                 channel = member.guild.get_channel(self.log_set)
-                audit_log = async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.kick):
+                async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.kick):
                 embed = discord.Embed(title="Member Kick", color=0x2AC11C)
                 embed.add_field(name=f"Target", value=f"{member.mention}", inline=False)
                 embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
@@ -45,7 +45,7 @@ class ModlogCog(commands.Cog):
                 return
             try:    
                 channel = member.guild.get_channel(self.log_set) 
-                audit_log = async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.ban):
+                async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.ban):
                 embed = discord.Embed(title="Member Ban", color=0x2AC11C)
                 embed.add_field(name=f"Target", value=f"{member.mention}", inline=False)
                 embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
@@ -68,7 +68,7 @@ class ModlogCog(commands.Cog):
                 channel = member.guild.get_channel(self.log_set)
                 duration = after.timed_out_until - before.timed_out_until
                 duration = datetime.timedelta(duration)
-                audit_log = async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.member_):
+                async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.member_):
                 embed = discord.Embed(title="Member Ban", color=0x2AC11C)
                 embed.add_field(name=f"Target", value=f"{after.name.mention}", inline=False)
                 embed.add_field(name=f"Duration", value=f"{duration}", inline=False)
@@ -86,7 +86,7 @@ class ModlogCog(commands.Cog):
                 return
             try:    
                 channel = member.guild.get_channel(self.log_set) 
-                audit_log = async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.unban):
+                async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.unban):
                 embed = discord.Embed(title="Member Unban", color=0x2AC11C)
                 embed.add_field(name=f"Target", value=f"{member.mention}", inline=False)
                 embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
