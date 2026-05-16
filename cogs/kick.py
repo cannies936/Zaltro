@@ -27,15 +27,16 @@ class KickCog(commands.Cog):
             embed.add_field(name="Reason", value="{audit_reason}", inline=False)
             await interaction.response.send_message(embed=embed)
         except: discord.app_commands.MissingPermissions as e:
-            embed = discord.embed=discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:{e.missing_permissions}", color=0x2AC11C)
+            embed = discord.embed=discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:{e.missing_permissions}", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
         except: discord.app_commands.BotMissingPermissions as e:
-            embed = discord.embed=discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:{e.missing_permissions}", color=0x2AC11C)
+            embed = discord.embed=discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:{e.missing_permissions}", embed = embed=discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
+            await interaction.send_message(embed=embed, ephemeral=True))
         except: discord.HTTPException as e:
-            embed = discord.Embed(title="実行に失敗しました", description="Error Code:{e.code}\nError Message:{e.text}", color=0x2AC11C)
+            embed = discord.Embed(title="実行に失敗しました", description="Error Code:{e.code}\nError Message:{e.text}", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
         except: discord.app_commands.CommandInvokeError as e:
-            embed = embed=discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{e}", color=0x2AC11C)
+            embed = embed=discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot):
