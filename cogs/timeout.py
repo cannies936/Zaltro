@@ -40,5 +40,6 @@ class TimeoutCog(commands.Cog):
         except: discord.app_commands.CommandInvokeError as e:
             embed = embed=discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
+
 async def setup(bot):
     await bot.add_cog(TimeoutCog(bot))
