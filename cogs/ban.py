@@ -29,7 +29,7 @@ class BanCog(commands.Cog):
             else:
                 user = get_user(user)
                 await interaction.guild.ban(user, reason=audit_reason)
-            embed = discord.Embed(title="Kick Result:", color=0x2AC11C)
+            embed = discord.Embed(title="Ban Result:", color=0x2AC11C)
             embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
             embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
             embed.add_field(name="Reason", value="{audit_reason}", inline=False)
