@@ -21,5 +21,6 @@ class DiceCog(commands.Cog):
           dice_notation = random.randit(1, 6)
           await interaction.response(f"🎲 サイコロの結果: **{dice_notation}**")
       except app_commands.CommandInvokeError as e:
-        
+          embed = embed=discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
+          await interaction.send_message(embed=embed, ephemeral=True)
       
