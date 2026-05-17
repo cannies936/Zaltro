@@ -3,6 +3,6 @@ from discord.ext import commands
 from discord import app_commands
 import random
 import string
-import captcha
+from captcha.image import ImageCaptcha
 import asyncio
 
