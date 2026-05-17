@@ -9,7 +9,8 @@ INITIAL_EXTENSIONS = [
     'cogs.timeout',
     'cogs.untimeout',
     'cogs.dice',
-    'cogs.modlog_set'
+    'cogs.modlog_set',
+    'cogs.suprite'
 ]
 
 intents = discord.Intents.default()
