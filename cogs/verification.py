@@ -5,4 +5,4 @@ import random
 import string
 from captcha.image import ImageCaptcha
 import asyncio
-
+import pillow
