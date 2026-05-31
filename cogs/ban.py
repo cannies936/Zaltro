@@ -1,5 +1,5 @@
 import discord
-from app_commands import discord
+from discord import app_commands
 from discord.ext import commands
 import asyncio
 
@@ -29,22 +29,22 @@ class BanCog(commands.Cog):
                 embed.add_field(name="Reason", value=f"{audit_reason}", inline=False)
                 await interaction.response.send_message(embed=embed)
             else:
-                user = self.bot.fetch_user(user)
+                user = await self.bot.fetch_user(user)
                 await interaction.guild.ban(user, reason=audit_reason)
                 embed = discord.Embed(title="Ban Result:", color=0x2AC11C)
                 embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
                 embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
                 embed.add_field(name="Reason", value=f"{audit_reason}", inline=False)
                 await interaction.response.send_message(embed=embed)
-        except discord.MissingPermissions as e:
-            embed = discord.Embed(title="実行に失敗しました", description="Botの権限もしくは自身の権限を確認してください:{e}", color=discord.Colour.red())
-            await interaction.send_message(embed=embed, ephemeral=True)
+        except app_commands.MissingPermissions as e:
+            embed = discord.Embed(title="実行に失敗しました", description=f"Botの権限もしくは自身の権限を確認してください:{e}", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
         except discord.HTTPException as e:
-            embed = discord.Embed(title="実行に失敗しました", description="Error Code:{e.code}\nError Message:{e.text}", color=discord.Colour.red())
-            await interaction.send_message(embed=embed, ephemeral=True)
+            embed = discord.Embed(title="実行に失敗しました", description=f"Error Code:{e.code}\nError Message:{e.text}", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
         except discord.app_commands.CommandInvokeError as e:
-            embed = embed=discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
-            await interaction.send_message(embed=embed, ephemeral=True)
+            embed = embed=discord.Embed(title="実行に失敗しました", description=f"コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot):
     await bot.add_cog(BanCog(bot))
