@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 import asyncio
-
+from dotenv import load_dotenv
 INITIAL_EXTENSIONS = [
     'cogs.ban',
     'cogs.kick',
@@ -15,13 +15,13 @@ INITIAL_EXTENSIONS = [
 
 intents = discord.Intents.default()
 
-class MyBot(commands.Bot):
+class Zaltro(commands.Bot):
     async def load_extension():
         for cog in INITIAL_EXTENSIONS:
             await self.load_extension(cog)
 
-bot = MyBot(command_prefix='/', intents=intents)
-
+bot = Zaltro(command_prefix='/', intents=intents)
+load_dotenv()
 if __name__ == '__main__':
     # 環境変数からトークンを取得
     token = os.getenv('DISCORD_BOT_TOKEN')
