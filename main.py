@@ -16,7 +16,7 @@ INITIAL_EXTENSIONS = [
 intents = discord.Intents.default()
 
 class Zaltro(commands.Bot):
-    async def load_extension():
+    async def load_extensions(self):
         for cog in INITIAL_EXTENSIONS:
             await self.load_extension(cog)
 
