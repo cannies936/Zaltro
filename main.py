@@ -27,7 +27,7 @@ if __name__ == '__main__':
     # 環境変数からトークンを取得
     token = os.getenv('DISCORD_BOT_TOKEN')
     if token:
-        asyncio.run(setup_hook())
+        asyncio.run(setup_hook(self))
         bot.run(token)
     else:
         print("❌ DISCORD_BOT_TOKENが設定されていません")
