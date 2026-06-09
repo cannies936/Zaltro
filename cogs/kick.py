@@ -3,7 +3,7 @@ from discord import app_commands
 from discord.ext import commands
 import asyncio
 
-bot = commands.Bot(command_prefix="/", intents=intents) 
+bot = commands.Bot(command_prefix="/", intents=discord.Intents.all()) 
 tree = bot.tree
 
 class KickCog(commands.Cog):
@@ -26,11 +26,11 @@ class KickCog(commands.Cog):
             embed.add_field(name="Modertor", value="{interaction.user}", inline=False)
             embed.add_field(name="Reason", value="{audit_reason}", inline=False)
             await interaction.response.send_message(embed=embed)
-        except discord.app_commands.MissingPermissions as e:
-            embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:{e.missing_permissions}", color=discord.Colour.red())
+        except dapp_commands.MissingPermissions:
+            embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:メンバーをキック", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
-        except discord.app_commands.BotMissingPermissions as e:
-            embed = discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:{e.missing_permissions}", color=discord.Colour.red())
+        except app_commands.BotMissingPermissions:
+            embed = discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:メンバーをキック", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
         except discord.HTTPException as e:
             embed = discord.Embed(title="実行に失敗しました", description="Error Code:{e.code}\nError Message:{e.text}", color=discord.Colour.red())
