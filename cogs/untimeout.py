@@ -1,9 +1,10 @@
 import discord
-import discord from app_commands
+from discord import app_commands
 from discord.ext import commands
 import asyncio
 from datetime import timedelta
 
+intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="/", intents=intents) 
 tree = bot.tree
 
@@ -27,16 +28,16 @@ class UntimeoutCog(commands.Cog):
             embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
             embed.add_field(name="Reason", value=f"{reason}", inline=False)
             await interaction.response.send_message(embed=embed)
-       except: discord.app_commands.MissingPermissions as e:
-            embed = discord.embed=discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:{e.missing_permissions}", color=discord.Colour.red())
+        except app_commands.MissingPermissions:
+            embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:{e.missing_permissions}", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
-        except: discord.app_commands.BotMissingPermissions as e:
-            embed = discord.embed=discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:{e.missing_permissions}", color=discord.Colour.red())
-        except: discord.HTTPException as e:
+        except app_commands.BotMissingPermissions:
+            embed = discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:{e.missing_permissions}", color=discord.Colour.red())
+        except discord.HTTPException as e:
             embed = discord.Embed(title="実行に失敗しました", description="Error Code:{e.code}\nError Message:{e.text}", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
-        except: discord.app_commands.CommandInvokeError as e:
-            embed = embed=discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
+        except: app_commands.CommandInvokeError as e:
+            embed = discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot):
