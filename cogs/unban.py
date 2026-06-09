@@ -1,5 +1,5 @@
 import discord
-import discord from app_commands
+from discord import app_commands
 from discord.ext import commands
 import asyncio
 
@@ -15,7 +15,7 @@ class UnbanCog(commands.Cog):
     async def on_ready(self):
         await self.bot.tree.sync()
     
-    @app_commands.command(name="ban",description="ユーザーのバンを解除します")
+    @app_commands.command(name="unban",description="ユーザーのバンを解除します")
     @app_commands.describe(user="バンを解除するユーザー", reason="バンを解除する理由")
     async def unban(self, interaction: discord.Interaction, user: discord.User, reason: str = "理由が入力されてません"):
         try:
@@ -26,7 +26,11 @@ class UnbanCog(commands.Cog):
             embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
             embed.add_field(name="Reason", value="{audit_reason}", inline=False)
             await interaction.response.send_message(embed=embed)
-        
+        except app_commands.MissingPermissions:
+            embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:メンバーをバン", color=discord.Colour.red())
+            await interaction.send_message(embed=embed, ephemeral=True)
+        except app_commands.BotMissingPermissions:
+            embed = discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:メンバーをバン", color=discord.Colour.red())
         except discord.HTTPException as e:
             embed = discord.Embed(title="実行に失敗しました", description="Error Code:{e.code}\nError Message:{e.text}", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
