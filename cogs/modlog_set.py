@@ -1,9 +1,10 @@
 import discord
-from app_commands import discord
+from discord import app_commands
 from discord.ext import commands
 import asyncio
 from timedate import timedelta
 
+intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="/", intents=intents) 
 tree = bot.tree
 
