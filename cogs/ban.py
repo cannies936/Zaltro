@@ -27,13 +27,17 @@ class BanCog(commands.Cog):
             embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
             embed.add_field(name="Reason", value=f"{audit_reason}", inline=False)
             await interaction.response.send_message(embed=embed)
-        except app_commands.MissingPermissions as e:
-            embed = discord.Embed(title="実行に失敗しました", description=f"Botの権限もしくは自身の権限を確認してください:{e}", color=discord.Colour.red())
+        except app_commands.MissingPermissions:
+            embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:メンバーをバン", color=discord.Colour.red())
+            await interaction.send_message(embed=embed, ephemeral=True)
+        except app_commands.BotMissingPermissions:
+            embed = discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:メンバーをバン", color=discord.Colour.red())
+            await interaction.send_message(embed=embed, ephemeral=True)
             await interaction.response.send_message(embed=embed, ephemeral=True)
         except discord.HTTPException as e:
             embed = discord.Embed(title="実行に失敗しました", description=f"Error Code:{e.code}\nError Message:{e.text}", color=discord.Colour.red())
             await interaction.response.send_message(embed=embed, ephemeral=True)
-        except discord.app_commands.CommandInvokeError as e:
+        except app_commands.CommandInvokeError as e:
             embed = embed=discord.Embed(title="実行に失敗しました", description=f"コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
             await interaction.response.send_message(embed=embed, ephemeral=True)
 
