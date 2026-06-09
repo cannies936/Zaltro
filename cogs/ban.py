@@ -21,21 +21,12 @@ class BanCog(commands.Cog):
     async def ban(self, interaction: discord.Interaction, user: discord.User, days: int, reason: str = "理由が入力されてません"):
         try:
             audit_reason = f"実行者: {interaction.user} | 理由: {reason}"     
-            if isinstance(user, discord.Member):
-                await interaction.guild.ban(user, reason=audit_reason, delete_message_days=days)
-                embed = discord.Embed(title="Ban Result:", color=0x2AC11C)
-                embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
-                embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
-                embed.add_field(name="Reason", value=f"{audit_reason}", inline=False)
-                await interaction.response.send_message(embed=embed)
-            else:
-                user = await self.bot.fetch_user(user)
-                await interaction.guild.ban(user, reason=audit_reason)
-                embed = discord.Embed(title="Ban Result:", color=0x2AC11C)
-                embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
-                embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
-                embed.add_field(name="Reason", value=f"{audit_reason}", inline=False)
-                await interaction.response.send_message(embed=embed)
+            await interaction.guild.ban(user, reason=audit_reason, delete_message_days=days)
+            embed = discord.Embed(title="Ban Result:", color=0x2AC11C)
+            embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
+            embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
+            embed.add_field(name="Reason", value=f"{audit_reason}", inline=False)
+            await interaction.response.send_message(embed=embed)
         except app_commands.MissingPermissions as e:
             embed = discord.Embed(title="実行に失敗しました", description=f"Botの権限もしくは自身の権限を確認してください:{e}", color=discord.Colour.red())
             await interaction.response.send_message(embed=embed, ephemeral=True)
