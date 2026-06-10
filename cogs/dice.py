@@ -17,7 +17,7 @@ class DiceCog(commands.Cog):
         await self.bot.tree.sync()
     
     @app_commands.command(name="dice",description="サイコロを振ります")
-    @app_commands.Cooldown(2, 60)
+    @app_commands.check.cooldown(2, 60)
     async def dice(self, interaction: discord.Interaction):
       try:
           dice_notation = random.radint(1, 6)
