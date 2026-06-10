@@ -17,7 +17,7 @@ class SupuriteCog(commands.Cog):
         await self.bot.tree.sync()
     
     @app_commands.command(name="supurite",description="ランダムなスプライト画像を送信します")
-    @app_commands.check.cooldown(2, 60)
+    @app_commands.checks.cooldown(2, 60)
     async def supurite(self, interaction: discord.Interaction):
       try:
           files = [discord.File("images/sprite_bottle_1.png", filename="sprite_bottle_1.png"), discord.File("images/sprite_can_1.png", filename="sprite_can_1.png"), discord.File("images/sprite_image_3.jpg", filename="sprite_image_3.jpg")]
@@ -28,9 +28,9 @@ class SupuriteCog(commands.Cog):
           await interaction.response.send_message(embed=embed, file=sprite_file)
       except app_commands.CommandInvokeError as e:
           embed = embed=discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
-          await interaction.responce.send_message(embed=embed, ephemeral=True)
+          await interaction.response.send_message(embed=embed, ephemeral=True)
       except app_commands.CommandOnCooldown:
           embed = discord.Embed(title="実行に失敗しました", description="実行してから1分間程度は使えません", color=discord.Colour.red())
-
+          await interaction.response.send_message(embed=embed, ephemeral=True)
 async def setup(bot):
     await bot.add_cog(SupuriteCog(bot))
