@@ -36,8 +36,8 @@ class UntimeoutCog(commands.Cog):
         except discord.HTTPException as e:
             embed = discord.Embed(title="実行に失敗しました", description="Error Code:{e.code}\nError Message:{e.text}", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
-        except app_commands.CommandInvokeError:
-            embed = discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{error}", color=discord.Colour.red())
+        except app_commands.CommandInvokeError as e:
+            embed = discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot):
