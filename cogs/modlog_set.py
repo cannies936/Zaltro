@@ -21,6 +21,7 @@ class ModlogCog(commands.Cog):
     @app_commands.describe(channel="モデレーションログを送信するチャンネル")
     async def modlog_set(self, interaction: discord.Interaction, channel: discord.TextChannel):
         self.log_set = channel.id
+        self.guild = interaction.guild
         interaction.response.send_message(f"{channel.mention}にログを送信するようにしました")
 
         @commands.Cog.listener()
@@ -28,6 +29,7 @@ class ModlogCog(commands.Cog):
             if self.log_set is None:
                 return
             try:    
+                
                 channel = member.guild.get_channel(self.log_set)
                 async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.kick):
                 embed = discord.Embed(title="Member Kick", color=0x2AC11C)
