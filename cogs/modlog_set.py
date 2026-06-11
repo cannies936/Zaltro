@@ -2,7 +2,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 import asyncio
-from timedate import timedelta
+from datetime import timedelta
 
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="/", intents=intents) 
@@ -17,26 +17,19 @@ class ModlogCog(commands.Cog):
     async def on_ready(self):
         await self.bot.tree.sync()
 
-    @app_commands.command(name="modlog_set",description="モデレーションログをセットします")
-    @app_commands.describe(channel="モデレーションログを送信するチャンネル")
-    async def modlog_set(self, interaction: discord.Interaction, channel: discord.TextChannel):
-        self.log_set = channel.id
-        self.guild = interaction.guild
-        interaction.response.send_message(f"{channel.mention}にログを送信するようにしました")
-
-        @commands.Cog.listener()
+    @commands.Cog.listener()
         async def on_member_remove(self, member: discord.Member):
             if self.log_set is None:
                 return
             try:    
                 
-                channel = member.guild.get_channel(self.log_set)
-                async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.kick):
-                embed = discord.Embed(title="Member Kick", color=0x2AC11C)
-                embed.add_field(name=f"Target", value=f"{member.mention}", inline=False)
-                embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
-                embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
-                await channel.send(embed=embed)
+                channel = guild.get_channel(self.log_set)
+                async for entry in member.guild.audit_logs(limit=1, action=discord.AuditLogAction.kick):
+                    embed = discord.Embed(title="Member Kick", color=0x2AC11C)
+                    embed.add_field(name=f"Target", value=f"{member.mention}", inline=False)
+                    embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
+                    embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
+                    await channel.send(embed=embed)
            except discord.DiscordException:
                 pass
            except Exception:
@@ -47,37 +40,38 @@ class ModlogCog(commands.Cog):
             if self.log_set is None:
                 return
             try:    
-                channel = member.guild.get_channel(self.log_set) 
+                channel = guild.get_channel(self.log_set) 
                 async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.ban):
-                embed = discord.Embed(title="Member Ban", color=0x2AC11C)
-                embed.add_field(name=f"Target", value=f"{member.mention}", inline=False)
-                embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
-                embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
-                await channel.send(embed=embed)
-           except: discord.DiscordException:
+                    embed = discord.Embed(title="Member Ban", color=0x2AC11C)
+                    embed.add_field(name=f"Target", value=f"{member.mention}", inline=False)
+                    embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
+                    embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
+                    await channel.send(embed=embed)
+           except discord.DiscordException:
                 pass
-           except: Exception:
+           except Exception:
                 pass
 
         @commands.Cog.listener()
         async def on_member_update(self, before: discord.Member, after: discord.Member):
             if self.log_set is None:
                 return
-            elif before.timed_out.until == before.timed_out.until:
+            elif before.timed_out_until == after.timed_out_until:
                 return
-            elif after.timed_out.until is None
+            elif after.timed_out_until is None:
+                return
 
             try:    
-                channel = member.guild.get_channel(self.log_set)
+                channel = guild.get_channel(self.log_set)
                 duration = after.timed_out_until - before.timed_out_until
                 duration = datetime.timedelta(duration)
-                async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.member_):
-                embed = discord.Embed(title="Member Ban", color=0x2AC11C)
-                embed.add_field(name=f"Target", value=f"{after.name.mention}", inline=False)
-                embed.add_field(name=f"Duration", value=f"{duration}", inline=False)
-                embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
-                embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
-                await channel.send(embed=embed)
+                async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.member_update):
+                    embed = discord.Embed(title="Member Timeout", color=0x2AC11C)
+                    embed.add_field(name=f"Target", value=f"{after.mention}", inline=False)
+                    embed.add_field(name=f"Duration", value=f"{duration}", inline=False)
+                    embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
+                    embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
+                    await channel.send(embed=embed)
            except discord.DiscordException:
                 pass
            except Exception:
@@ -88,17 +82,23 @@ class ModlogCog(commands.Cog):
             if self.log_set is None:
                 return
             try:    
-                channel = member.guild.get_channel(self.log_set) 
+                channel = guild.get_channel(self.log_set) 
                 async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.unban):
-                embed = discord.Embed(title="Member Unban", color=0x2AC11C)
-                embed.add_field(name=f"Target", value=f"{member.mention}", inline=False)
-                embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
-                embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
-                await channel.send(embed=embed)
+                    embed = discord.Embed(title="Member Unban", color=0x2AC11C)
+                    embed.add_field(name=f"Target", value=f"{member.mention}", inline=False)
+                    embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
+                    embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
+                    await channel.send(embed=embed)
            except discord.DiscordException:
                 pass
            except Exception:
                 pass
+
+    @app_commands.command(name="modlog_set",description="モデレーションログをセットします")
+    @app_commands.describe(channel="モデレーションログを送信するチャンネル")
+    async def modlog_set(self, interaction: discord.Interaction, channel: discord.TextChannel):
+        self.log_set = channel.id
+        await interaction.response.send_message(f"{channel.mention}にログを送信するようにしました")
 
 async def setup(bot):
     await bot.add_cog(ModlogCog(bot))
