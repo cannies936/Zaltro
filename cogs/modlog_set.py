@@ -21,12 +21,16 @@ class ModlogCog(commands.Cog):
             guild = member.guild
             channel = guild.get_channel(self.log_set)
             async for entry in member.guild.audit_logs(limit=1, action=discord.AuditLogAction.kick):
+            if entry.target.id == member.id:    
                 embed = discord.Embed(title="Member Kick", color=0x2AC11C)
                 embed.add_field(name=f"Target", value=f"{member.mention}", inline=False)
                 embed.add_field(name=f"Moderator", value=f"{entry.user.mention}", inline=False)
                 embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
                 await channel.send(embed=embed)
                 break
+            else:
+                pass
+        
         except discord.DiscordException:
             pass
         except Exception:
@@ -36,8 +40,7 @@ class ModlogCog(commands.Cog):
     async def on_member_ban(self, guild: discord.Guild, member: discord.User):
         if self.log_set is None:
             return
-        try:    
-            guild = member.guild
+        try:
             channel = guild.get_channel(self.log_set) 
             async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.ban):
                 embed = discord.Embed(title="Member Ban", color=0x2AC11C)
@@ -46,6 +49,7 @@ class ModlogCog(commands.Cog):
                 embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
                 await channel.send(embed=embed)
                 break
+        
         except discord.DiscordException:
             pass
         except Exception:
@@ -70,6 +74,7 @@ class ModlogCog(commands.Cog):
                 embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
                 await channel.send(embed=embed)
                 break
+        
         except discord.DiscordException:
             pass
         except Exception:
@@ -89,6 +94,7 @@ class ModlogCog(commands.Cog):
                 embed.add_field(name=f"Reason", value=f"{entry.reason}", inline=False)
                 await channel.send(embed=embed)
                 break
+        
         except discord.DiscordException:
             pass
         except Exception:
