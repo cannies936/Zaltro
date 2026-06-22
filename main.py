@@ -10,7 +10,6 @@ INITIAL_EXTENSIONS = [
     'cogs.timeout',
     'cogs.untimeout',
     'cogs.dice',
-    'cogs.modlog_set',
     'cogs.supurite'
 ]
 
@@ -27,7 +26,6 @@ if __name__ == '__main__':
     # 環境変数からトークンを取得
     token = os.getenv('DISCORD_BOT_TOKEN')
     if token:
-        asyncio.run(bot.setup_hook())
         bot.run(token)
     else:
         print("❌ DISCORD_BOT_TOKENが設定されていません")
