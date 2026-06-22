@@ -12,7 +12,7 @@ class TimeoutCog(commands.Cog):
     async def on_ready(self):
         await self.bot.tree.sync()
     
-    @app_commands.command(name="timeout",description="ユーザーをサーバーからバンします")
+    @app_commands.command(name="timeout",description="ユーザーをタイムアウトします")
     @app_commands.describe(user="タイムアウトするユーザー", duration="タイムアウトする期間(指定しない場合は30秒です)", reason="タイムアウトする理由")
     async def timeout(self, interaction: discord.Interaction, user: discord.Member, duration: int = 30, reason: str = "理由が入力されてません"):
         try:
