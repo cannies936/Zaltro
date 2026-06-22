@@ -18,7 +18,7 @@ class TimeoutCog(commands.Cog):
         try:
             duration = timedelta(seconds=duration)
             audit_reason = f"実行者: {interaction.user} | 理由: {reason}"
-            await user.timeout(until=duration, reason=audit_reason)
+            await user.timeout(duration, reason=audit_reason)
             embed = discord.Embed(title="Timeout Result:", color=0x2AC11C)
             duration = str(timedelta(seconds=duration))
             embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
