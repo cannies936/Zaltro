@@ -14,15 +14,16 @@ class TimeoutCog(commands.Cog):
     
     @app_commands.command(name="timeout",description="ユーザーをタイムアウトします")
     @app_commands.describe(user="タイムアウトするユーザー", duration="タイムアウトする期間(指定しない場合は30秒です)", reason="タイムアウトする理由")
+    @app_commands.checks.has_permissions(moderate_members=True)
+    @app_commands.checks.bot_has_permissions(moderate_members=True)
     async def timeout(self, interaction: discord.Interaction, user: discord.Member, duration: int = 30, reason: str = "理由が入力されてません"):
         try:
             duration = timedelta(seconds=duration)
             audit_reason = f"実行者: {interaction.user} | 理由: {reason}"
             await user.timeout(duration, reason=audit_reason)
             embed = discord.Embed(title="Timeout Result:", color=0x2AC11C)
-            duration = str(timedelta(seconds=duration))
             embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
-            embed.add_field(name="Duration", value=f"str(duration)", inline=False)
+            embed.add_field(name="Duration", value="str(duration)", inline=False)
             embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
             embed.add_field(name="Reason", value=f"{reason}", inline=False)
             await interaction.response.send_message(embed=embed)
