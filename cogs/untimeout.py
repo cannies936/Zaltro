@@ -17,10 +17,9 @@ class UntimeoutCog(commands.Cog):
     @app_commands.checks.has_permissions(moderate_members=True)
     @app_commands.checks.bot_has_permissions(moderate_members=True)
     async def untimeout(self, interaction: discord.Interaction, user: discord.Member, reason: str = "理由が入力されてません"):
-        try:    
-            duration = timedelta(seconds=0)
+        try:
             audit_reason = f"実行者: {interaction.user} | 理由: {reason}"
-            await user.timeout(duration, reason=audit_reason)
+            await user.timeout(None, reason=audit_reason)
             embed = discord.Embed(title="Untimeout Result:", color=0x2AC11C)
             embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
             embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
