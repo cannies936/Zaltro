@@ -13,6 +13,8 @@ class BanCog(commands.Cog):
 
     @app_commands.command(name="ban",description="ユーザーをサーバーからバンします")
     @app_commands.describe(user="バンするユーザー", reason="バンする理由", days="削除する日数")
+    @app_commands.checks.has_permissions(ban_members=True)
+    @app_commands.checks.bot_has_permissions(ban_members=True)
     async def ban(self, interaction: discord.Interaction, user: discord.User, days: int, reason: str = "理由が入力されてません"):
         try:
             audit_reason = f"実行者: {interaction.user} | 理由: {reason}"     
