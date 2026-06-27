@@ -10,9 +10,11 @@ class UnbanCog(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         await self.bot.tree.sync()
-    
+    @app_commands.checks.has_permissions(ban_members=True)
+    @app_commands.checks.bot_has_permissions(ban_members=True)
     @app_commands.command(name="unban",description="ユーザーのバンを解除します")
     @app_commands.describe(user="バンを解除するユーザー", reason="バンを解除する理由")
+    
     async def unban(self, interaction: discord.Interaction, user: discord.User, reason: str = "理由が入力されてません"):
         try:
             audit_reason = f"実行者: {interaction.user} | 理由: {reason}"     
