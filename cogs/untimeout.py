@@ -14,6 +14,8 @@ class UntimeoutCog(commands.Cog):
     
     @app_commands.command(name="untimeout",description="ユーザーのタイムアウトを解除します")
     @app_commands.describe(user="タイムアウトを解除するユーザー", reason="タイムアウトを解除する理由")
+    @app_commands.checks.has_permissions(moderate_members=True)
+    @app_commands.checks.bot_has_permissions(moderate_members=True)
     async def untimeout(self, interaction: discord.Interaction, user: discord.Member, reason: str = "理由が入力されてません"):
         try:    
             duration = timedelta(seconds=0)
