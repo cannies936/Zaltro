@@ -13,7 +13,7 @@ class SupuriteCog(commands.Cog):
         await self.bot.tree.sync()
     
     @app_commands.command(name="supurite",description="ランダムなスプライト画像を送信します")
-    @app_commands.checks.cooldown(2, 60)
+    @app_commands.checks.cooldown(2, 60, type=discord.BucketType.user)
     async def supurite(self, interaction: discord.Interaction):
       try:
           files = [discord.File("images/sprite_bottle_1.png", filename="sprite_bottle_1.png"), discord.File("images/sprite_can_1.png", filename="sprite_can_1.png"), discord.File("images/sprite_image_3.jpg", filename="sprite_image_3.jpg")]
