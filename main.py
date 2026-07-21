@@ -22,6 +22,8 @@ class Zaltro(commands.Bot):
     async def setup_hook(self):
         for cog in INITIAL_EXTENSIONS:
             await self.load_extension(cog)
+    async def on_ready(self):
+        print("{self.user}としてログインしました")
 
 bot = Zaltro(command_prefix='/', intents=intents)
 load_dotenv()
@@ -30,7 +32,6 @@ if __name__ == '__main__':
     token = os.getenv('DISCORD_BOT_TOKEN')
     if token:
         bot.run(token)
-        print(f"{bot.user}としてログインしました")
     else:
         print("❌ DISCORD_BOT_TOKENが設定されていません")
         print("環境変数にDiscordボットのトークンを設定してください")
