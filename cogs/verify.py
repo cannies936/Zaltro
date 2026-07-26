@@ -1,7 +1,8 @@
 import discord
 from discord.ext import commands
+import asyncio
 from typing import Literal
-from module.auth import nomal, calc, image
+from module.verify import nomal, calc, image
 
 class BanCog(commands.Cog):
     def __init__(self, bot):
