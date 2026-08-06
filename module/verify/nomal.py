@@ -1,5 +1,5 @@
 import discord
-from discord.ui import Button, View
+import asyncio
 
 class NomalView(discord.ui.View):
     def __init__(self, role):
