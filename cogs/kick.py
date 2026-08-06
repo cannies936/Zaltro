@@ -23,7 +23,7 @@ class KickCog(commands.Cog):
             embed = discord.Embed(title="Kick Result:", color=0x2AC11C)
             embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
             embed.add_field(name="Modertor", value="{interaction.user}", inline=False)
-            embed.add_field(name="Reason", value="{audit_reason}", inline=False)
+            embed.add_field(name="Reason", value="{reason}", inline=False)
             await interaction.response.send_message(embed=embed)
         except dapp_commands.MissingPermissions:
             embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:メンバーをキック", color=discord.Colour.red())
