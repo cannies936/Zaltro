@@ -22,7 +22,7 @@ class UnbanCog(commands.Cog):
             embed = discord.Embed(title="Unban Result:", color=0x2AC11C)
             embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
             embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
-            embed.add_field(name="Reason", value="{audit_reason}", inline=False)
+            embed.add_field(name="Reason", value=f"{reason}", inline=False)
             await interaction.response.send_message(embed=embed)
         except app_commands.MissingPermissions:
             embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:メンバーをバン", color=discord.Colour.red())
