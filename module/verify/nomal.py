@@ -5,8 +5,8 @@ class NomalView(discord.ui.View):
     def __init__(self, role):
         super().__init__(timeout=0)  # タイムアウト時間（秒）
         self.role = role
-    @discord.ui.button(label="認証する", style=discord.ButtonStyle.green)
-    async def my_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+    @discord.ui.button(label="認証する", style=discord.ButtonStyle.green, custom_id=nomal)
+    async def nomal(self, interaction: discord.Interaction, button: discord.ui.Button):
         try:
       　    interaction.user.add_roles(role, reason="Zaltro即時認証")
             embed = discord.Embed(title="", description="✅認証しました", color=discord.Color.green())
