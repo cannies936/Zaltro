@@ -12,7 +12,7 @@ def code_generate():
     return "".join(random.choice(chars) for _ in range(7))
 
 class ImageView(discord.ui.View):
-    def __init__(self, role):
+    def __init__(self, role: discord.Role):
         super().__init__(timeout=0)  # タイムアウト時間（秒）
         self.role = role
     @discord.ui.button(label="認証する", style=discord.ButtonStyle.green, custom_id=image)
@@ -32,7 +32,7 @@ class ImageView(discord.ui.View):
                     embed = discord.Embed(title="❌エラー", description="認証に失敗しました: 既に認証済みです", color=discord.Color.red())
                     await interaction.response.send_message(embed=embed, ephemeral=True) 
                 else:
-                    interaction.user.add_roles(role, reason="Zaltro即時認証")
+                    interaction.user.add_roles(role, reason="Zaltro画像認証")
                     embed = discord.Embed(title="", description="✅認証しました", color=discord.Color.green())
                     await interaction.response.send_message(embed=embed, ephemeral=True)
             except Forbidden:
@@ -43,5 +43,5 @@ class ImageView(discord.ui.View):
         view.add_item(select_menu)
         embed = discord.Embed(title="", description="以下の指示に従ってください", color=discord.Color.green())
         embed.set_image(url="attachment://captcha.png")
-        await interaction.response.send_message(embed=embed, ephemeral=True)
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
 
