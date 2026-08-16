@@ -4,7 +4,6 @@ from discord.ext import commands
 import os
 from dotenv import load_dotenv
 
-# 1. コマンドグループのクラスを作成
 class AdminGroup(app_commands.Group, name="admin"):
     def _init_(self, bot: commands.Bot):
         super().__init__()
