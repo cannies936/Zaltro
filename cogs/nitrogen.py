@@ -23,7 +23,7 @@ class NitroCog(commands.Cog):
         await self.bot.tree.sync()
     
     @app_commands.command(name="nitrogen",description="ニトロギフトを送ります")
-    @app_commands.checks.cooldown(2, 60, type=discord.BucketType.user)
+    @app_commands.checks.cooldown(2, 60, key=lambda interaction: interaction.user.id)
     async def nitrogen(self, interaction: discord.Interaction):
         try:
             embed = discord.Embed(title="あなたにNitroが贈呈されています！", description=f"{interaction.user}があなたたちにNitroを送りました！", color=discord.Colour.fuchsia())
