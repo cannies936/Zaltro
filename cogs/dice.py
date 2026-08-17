@@ -23,6 +23,7 @@ class DiceCog(commands.Cog):
           await interaction.response.send_message(embed=embed, ephemeral=True)
       except app_commands.CommandOnCooldown:
           embed = discord.Embed(title="実行に失敗しました", description="実行してから1分間程度は使えません", color=discord.Colour.red())
+          await interaction.response.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot):
     await bot.add_cog(DiceCog(bot))
