@@ -10,7 +10,11 @@ INITIAL_EXTENSIONS = [
     'cogs.timeout',
     'cogs.untimeout',
     'cogs.dice',
-    'cogs.supurite'
+    'cogs.supurite',
+    'cogs.purge',
+    'cogs.nitrogen',
+    'cogs.admin',
+    'cogs.verify'
 ]
 
 intents = discord.Intents.default()
