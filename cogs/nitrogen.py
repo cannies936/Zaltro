@@ -9,7 +9,11 @@ class NitroView(discord.ui.View):
     @discord.ui.button(label="受け取る", style=discord.ButtonStyle.green, custom_id=nitro)
     async def nitro(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_message("https://klipy.com/gifs/never-gonna-give-you-up-4", ephemeral=True)
-
+    async def on_timeout(self):
+        self.nitro.disabled = True
+        embed = discord.Embed(title="あなたにNitroが贈呈されています！", description="どうやら期限が切れたようです...", color=discord.Colour.fuchsia())
+        self.message.edit(embed=embed, view=self)
+ 
 class NitroCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
