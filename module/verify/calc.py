@@ -9,12 +9,12 @@ class CalcModal(discord.ui.Modal):
        self.role = role
        super().__init__(title="以下の指示にしたがってください")
        self.question = discord.ui.TextInput(label="{question_calc}の答えを入力してください", placeholder="例: 15", required=True, max_length=3)
-        self.add_item(self.question)
+       self.add_item(self.question)
   
    async def on_submit(self, interaction: discord.interact.Interaction, role: discord.Role):
         try:
             if str(self.answer) == self.question.value:
-                await interaction.user.add_roles(role, reason="Zaltro計算認証")
+                await interaction.user.add_roles(self.role, reason="Zaltro計算認証")
                 embed = discord.Embed(title="", description="✅認証しました", color=discord.Color.green())
                 await interaction.response.send_message(embed=embed, ephemeral=True)
             elif role in interaction.user.role:
@@ -27,7 +27,8 @@ class CalcModal(discord.ui.Modal):
             await interaction.response.send_message(embed=embed, ephemeral=True)
        
 class CalcView(discord.ui.View):
-    def __init__(self, role):
+    def __init__(self, role: discord.Roles):
+        self.role = role
         super().__init__(timeout=0)  # タイムアウト時間（秒）
     @discord.ui.button(label="認証する", style=discord.ButtonStyle.green, custom_id=calc)
     async def calc(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -47,4 +48,4 @@ class CalcView(discord.ui.View):
           num2 = random.randint(0, 20)
           question_calc = f"{num1}×{num2}"
           answer = num1 * num2
-       await interaction.response.send_modal(CalcModal())
+       await interaction.response.send_modal(CalcModal(self.role))
