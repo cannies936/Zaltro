@@ -25,8 +25,12 @@ class NitroCog(commands.Cog):
     @app_commands.command(name="nitrogen",description="ニトロギフトを送ります")
     @app_commands.checks.cooldown(2, 60, type=discord.BucketType.user)
     async def nitrogen(self, interaction: discord.Interaction):
-        embed = discord.Embed(title="あなたにNitroが贈呈されています！", description=f"{interaction.user}があなたたちにNitroを送りました！", color=discord.Colour.fuchsia())
-        await interaction.response.send_message(embed=embed, view=NitroView())
+        try:
+            embed = discord.Embed(title="あなたにNitroが贈呈されています！", description=f"{interaction.user}があなたたちにNitroを送りました！", color=discord.Colour.fuchsia())
+            await interaction.response.send_message(embed=embed, view=NitroView())
+        except app_commands.CommandOnCooldown:
+          embed = discord.Embed(title="実行に失敗しました", description="実行してから1分間程度は使えません", color=discord.Colour.red())
+          await interaction.response.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot):
     await bot.add_cog(NitroCog(bot))
