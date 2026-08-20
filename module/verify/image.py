@@ -11,11 +11,18 @@ def code_generate():
     chars = string.ascii_letters + string.digits
     return "".join(random.choice(chars) for _ in range(7))
 
+class CaptchaSelect(discord.ui.Select):
+    def __init__(self, role: discord.Role, captcha_code: str, captcha_source: list[str]):
+        self.role = role
+        self.captcha_code = captcha_code
+        options = [discord.SelectOption(label=code)for code in captcha_source]
+        super().__init__(placeholder="画像に書かれた文字を選択してください", min_values=1, max_values=1, options=options, custom_id="captcha_image")
+
 class ImageView(discord.ui.View):
     def __init__(self, role: discord.Role):
         self.role = role
         super().__init__(timeout=0)
-    @discord.ui.button(label="認証する", style=discord.ButtonStyle.green, custom_id=image)
+    @discord.ui.button(label="認証する", style=discord.ButtonStyle.green, custom_id="image")
     async def image(self, interaction: discord.Interaction, button: discord.ui.Button):
         captcha_source = [code_generate() for _ in range(5)]
         captcha_code = random.choice(captcha_source)
@@ -39,7 +46,7 @@ class ImageView(discord.ui.View):
                 embed = discord.Embed(title="❌エラー", description="認証に失敗しました: BOTに適切な権限がないかロールがBOTよりも上にあります", color=discord.Color.red())
                 await interaction.response.send_message(embed=embed, ephemeral=True)
         select_menu.callback = select_callback
-        view = discord.ui.View(timeout=0)
+        view = discord.ui.View(timeout=300)
         view.add_item(select_menu)
         embed = discord.Embed(title="", description="以下の指示に従ってください", color=discord.Color.green())
         embed.set_image(url="attachment://captcha.png")
