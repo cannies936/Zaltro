@@ -27,7 +27,7 @@ class Zaltro(commands.Bot):
         for cog in INITIAL_EXTENSIONS:
             await self.load_extension(cog)
     async def on_ready(self):
-        print("{self.user}としてログインしました")
+        print(f"{self.user}としてログインしました")
 
 bot = Zaltro(command_prefix='/', intents=intents)
 load_dotenv()
