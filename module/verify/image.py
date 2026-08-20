@@ -27,24 +27,24 @@ class ImageView(discord.ui.View):
         captcha_source = [code_generate() for _ in range(5)]
         captcha_code = random.choice(captcha_source)
         random.shuffle(captcha_source)
-        image = captcha_generator.generate(captcha_code)
+        image = captcha_image.generate(captcha_code)
         image_bytes = io.BytesIO(image.read())
         file = discord.File(fp=image_bytes, filename="captcha.png")
         select_menu = discord.ui.Select(placeholder="画像に書かれた文字を選択してください", min_values=1, max_values=1, options=[discord.SelectOption(label=option, value=option) for option in captcha_source], custom_id="captcha_image")
-    async def select_callback():
+    async def select_callback(select_interaction: discord.Interaction):
         choice = select_menu.values[0]
         if choice == captcha_code:
             try:
-      　        if self.role in interaction.user.roles:
+      　        if self.role in select_interaction.user.roles:
                     embed = discord.Embed(title="❌エラー", description="認証に失敗しました: 既に認証済みです", color=discord.Color.red())
                     await interaction.response.send_message(embed=embed, ephemeral=True) 
                 else:
-                    interaction.user.add_roles(self.role, reason="Zaltro画像認証")
+                    await select_interaction.user.add_roles(self.role, reason="Zaltro画像認証")
                     embed = discord.Embed(title="", description="✅認証しました", color=discord.Color.green())
                     await interaction.response.send_message(embed=embed, ephemeral=True)
-            except Forbidden:
+            except discord.Forbidden:
                 embed = discord.Embed(title="❌エラー", description="認証に失敗しました: BOTに適切な権限がないかロールがBOTよりも上にあります", color=discord.Color.red())
-                await interaction.response.send_message(embed=embed, ephemeral=True)
+                await select_interaction.response.send_message(embed=embed, ephemeral=True)
         select_menu.callback = select_callback
         view = discord.ui.View(timeout=300)
         view.add_item(select_menu)
