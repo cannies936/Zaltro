@@ -5,22 +5,21 @@ from discord.ext import commands
 
 class NitroView(discord.ui.View):
     def __init__(self):
+        self.message = None
         super().__init__(timeout=300)
     @discord.ui.button(label="受け取る", style=discord.ButtonStyle.green, custom_id=nitro)
     async def nitro(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_message("https://klipy.com/gifs/never-gonna-give-you-up-4", ephemeral=True)
     async def on_timeout(self):
-        self.nitro.disabled = True
+        for item in self.children:
+            if isinstance(item, discord.ui.Button):
+                item.disabled = True
         embed = discord.Embed(title="あなたにNitroが贈呈されています！", description="どうやら期限が切れたようです...", color=discord.Colour.fuchsia())
         self.message.edit(embed=embed, view=self)
  
 class NitroCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    
-    @commands.Cog.listener()
-    async def on_ready(self):
-        await self.bot.tree.sync()
     
     @app_commands.command(name="nitrogen",description="ニトロギフトを送ります")
     @app_commands.checks.cooldown(2, 60, key=lambda interaction: interaction.user.id)
@@ -34,3 +33,4 @@ class NitroCog(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(NitroCog(bot))
+    awaitbot.tree.sync()
