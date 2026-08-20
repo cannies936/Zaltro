@@ -11,7 +11,7 @@ class AdminGroup(app_commands.Group, name="admin"):
         self.bot = bot
     @app_commands.command(name="leave", description="Botを脱退させます")
     @app_commands.describe(guild_id="脱退させるサーバーのID")
-    async def leave(self, interaction: discord.Interaction):
+    async def leave(self, interaction: discord.Interaction, guild_id: int):
         load_dotenv()
         developer_id = os.getenv('DEVELOPER_ID')
         guild = bot.get_guild(guild_id)
@@ -30,9 +30,10 @@ class AdminGroup(app_commands.Group, name="admin"):
             embed = discord.Embed(title="❌エラー", description="このコマンドは開発者専用です")
             await interaction.response.send_message(embed=embed, ephemeral=True)
         else: 
+            await interaction.response.defer()
             with open("servers.txt", "w", encoding="utf-8") as f:
-            for guild in bot.guilds:
-                f.write(f"サーバー名: {guild.name} (ID: {guild.id})\n")
+                for guild in bot.guilds:
+                    f.write(f"サーバー名: {guild.name} (ID: {guild.id})\n")
             embed = discord.Embed(title="", description="更新しました")
             await interaction.response.send_message(embed=embed, ephemeral=True)
 
@@ -46,5 +47,6 @@ class AdminCog(commands.Cog):
     async def cog_load(self):
         self.bot.tree.add_command(self.group)
 
-async def setup_hook(bot: commands.Bot):
+async def setup(bot: commands.Bot):
     await bot.add_cog(AdminCog(bot))
+    await bot.tree.sync()
