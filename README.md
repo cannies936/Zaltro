@@ -1,10 +1,10 @@
-# Discord サーバー管理Bot: Zaltro
-|Version|Datails|
-|:---|:---|
-|Alpha|Coming Soon|
-|A.1|Waiting|
-|1.0|Waiting|
-|1.0.1|Waiting|
+# Discord 多目的Bot: Zaltro
+## 説明
+このBotはモデレーションや認証システム、いくらかの遊びコマンドがあります。
+使い方は使い方を参照してください。
 ## 使い方
-現在開発中
-
+現在設定中
+## バクやセキュリティ問題サポート
+一部の機能が動作しないといったバグはIsuueにお願いします。
+セキュリティ関連の問題はsecurityにお願いします。
+サポートサーバーは一番上のDiscordアイコンを押したら入れます。
