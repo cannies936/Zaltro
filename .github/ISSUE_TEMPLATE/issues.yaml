@@ -1,0 +1,27 @@
+name: バグ報告
+description: 不具合が発生した場合はこちらから報告してください
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: overview
+    attributes:
+      label: 発生している問題
+      description: 問題の詳細を書いてください
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 環境
+      description: osはどんなものを使ったのかpythonのversionとか
+    validations:
+      required: false
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 再現手順
+      description: どのように操作したか
+    validations:
+      required: true
+
