@@ -13,7 +13,8 @@ INITIAL_EXTENSIONS = [
     'cogs.supurite',
     'cogs.purge',
     'cogs.nitrogen',
-    'cogs.admin',
+    'cogs.leave',
+    'cogs.servers',
     'cogs.verify'
 ]
 
