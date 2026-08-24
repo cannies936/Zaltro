@@ -14,14 +14,14 @@ body:
     id: environment
     attributes:
       label: 環境
-      description: osはどんなものを使ったのかpythonのversionとか
+      description: osはどんなものを使ったのかPythonのversionとか
     validations:
       required: false
   - type: textarea
     id: reproduce
     attributes:
-      label: 再現手順
-      description: どのように操作したか
+      label: この問題に対処できる方法
+      description: コードなどを入力してください
     validations:
-      required: true
+      required: false
 
