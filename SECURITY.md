@@ -1,21 +1,17 @@
 # Security Policy
 
-## Supported Versions
+## サポートされているバージョン
+以下の表はこのBotのバージョン一覧です。
+:white_check_mark: :サポートされています,
+:x: :サポートが終了しているか、未実装です。
+| Version | サポートされているか |
+| ------- | ---------------  |
+| 0.0.x   | :white_check_mark: |
+| 0.1.x   | :x:                |
+| 0.2.x   | :x: 　　　　　　　　　 |
+| 1.0.x   | :x:                |
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+## セキュリティの脆弱性を発見したとき
+Isuueテンプレートを使用して報告してください。
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
 
-## Reporting a Vulnerability
-
-Use this section to tell people how to report a vulnerability.
-
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
