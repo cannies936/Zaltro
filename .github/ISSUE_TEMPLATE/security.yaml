@@ -1,0 +1,19 @@
+name: セキュリティ脆弱の報告
+description: セキュリティ脆弱を発見した場合はこちらからお願いします
+title: "[Security Isuue]: "
+labels: ["Security Isuue"]
+body:
+  - type: textarea
+    id: overview
+    attributes:
+      label: 発生している問題
+      description: 
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 対処方法
+      description: どんなライブラリが代替となるのか
+    validations:
+      required: true
