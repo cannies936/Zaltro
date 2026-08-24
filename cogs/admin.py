@@ -5,7 +5,7 @@ import asyncio
 import os
 from dotenv import load_dotenv
 
-class AdminGroup(app_commands.Group, name="admin"):
+class LeaveCog(commands.Cog):
     def _init_(self, bot: commands.Bot):
         super().__init__()
         self.bot = bot
@@ -22,31 +22,7 @@ class AdminGroup(app_commands.Group, name="admin"):
             await guild.leave()
             embed = discord.Embed(title="", description="{guild.name}({guild_id})から脱退しました")
             await interaction.response.send_message(embed=embed, ephemeral=True)
-    @app_commands.command(name="servers", description="サーバー一覧を書いたファイルを更新します")
-    async def servers(interaction: discord.Interaction):
-        load_dotenv()
-        developer_id = os.getenv('DEVELOPER_ID')
-        if interaction.user.id == developer_id:
-            embed = discord.Embed(title="❌エラー", description="このコマンドは開発者専用です")
-            await interaction.response.send_message(embed=embed, ephemeral=True)
-        else: 
-            await interaction.response.defer()
-            with open("servers.txt", "w", encoding="utf-8") as f:
-                for guild in bot.guilds:
-                    f.write(f"サーバー名: {guild.name} (ID: {guild.id})\n")
-            embed = discord.Embed(title="", description="更新しました")
-            await interaction.response.send_message(embed=embed, ephemeral=True)
-
-class AdminCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
-        self.bot = bot
-        # 作成したグループをインスタンス化して追加
-        self.group = AdminGroup()
-
-    # cog_load でツリーに登録するパターン
-    async def cog_load(self):
-        self.bot.tree.add_command(self.group)
 
 async def setup(bot: commands.Bot):
-    await bot.add_cog(AdminCog(bot))
+    await bot.add_cog(LeaveCog(bot))
     await bot.tree.sync()
