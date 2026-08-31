@@ -28,7 +28,7 @@ class ImageView(discord.ui.View):
             choice = select_menu.values[0]
             if choice == captcha_code:
                 try:
-      　            if self.role in select_interaction.user.roles:
+                    if self.role in select_interaction.user.roles:
                         embed = discord.Embed(title="❌エラー", description="認証に失敗しました: 既に認証済みです", color=discord.Color.red())
                         await select_interaction.response.send_message(embed=embed, ephemeral=True) 
                     else:
@@ -38,10 +38,9 @@ class ImageView(discord.ui.View):
                 except discord.Forbidden:
                     embed = discord.Embed(title="❌エラー", description="認証に失敗しました: BOTに適切な権限がないかロールがBOTよりも上にあります", color=discord.Color.red())
                     await select_interaction.response.send_message(embed=embed, ephemeral=True)
-            select_menu.callback = select_callback
-            view = discord.ui.View(timeout=0)
-            view.add_item(select_menu)
-            embed = discord.Embed(title="", description="以下の指示に従ってください", color=discord.Color.green())
-            embed.set_image(url="attachment://captcha.png")
-            await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
-
+        select_menu.callback = select_callback
+        view = discord.ui.View(timeout=0)
+        view.add_item(select_menu)
+        embed = discord.Embed(title="", description="以下の指示に従ってください", color=discord.Color.green())
+        embed.set_image(url="attachment://captcha.png")
+        await interaction.response.send_message(embed=embed, file=file, view=view, ephemeral=True)
