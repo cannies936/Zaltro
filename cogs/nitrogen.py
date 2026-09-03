@@ -7,7 +7,7 @@ class NitroView(discord.ui.View):
     def __init__(self):
         self.message = None
         super().__init__(timeout=300)
-    @discord.ui.button(label="受け取る", style=discord.ButtonStyle.green, custom_id=nitro)
+    @discord.ui.button(label="受け取る", style=discord.ButtonStyle.green, custom_id="nitro")
     async def nitro(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_message("https://klipy.com/gifs/never-gonna-give-you-up-4", ephemeral=True)
     async def on_timeout(self):
