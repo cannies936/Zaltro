@@ -33,4 +33,4 @@ class NitroCog(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(NitroCog(bot))
-    awaitbot.tree.sync()
+    await bot.tree.sync()
