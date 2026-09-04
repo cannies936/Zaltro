@@ -6,16 +6,16 @@ import os
 from dotenv import load_dotenv
 
 class LeaveCog(commands.Cog):
-    def _init_(self, bot: commands.Bot):
+    def __init__(self, bot: commands.Bot):
         super().__init__()
         self.bot = bot
     @app_commands.command(name="leave", description="Botを脱退させます")
     @app_commands.describe(guild_id="脱退させるサーバーのID")
     async def leave(self, interaction: discord.Interaction, guild_id: int):
         load_dotenv()
-        developer_id = os.getenv('DEVELOPER_ID')
+        developer_id = int(os.getenv('DEVELOPER_ID'))
         guild = bot.get_guild(guild_id)
-        if interaction.user.id == developer_id:
+        if interaction.user.id != developer_id:
             embed = discord.Embed(title="❌エラー", description="このコマンドは開発者専用です")
             await interaction.response.send_message(embed=embed, ephemeral=True)
         else:   
