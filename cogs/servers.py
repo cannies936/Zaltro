@@ -12,7 +12,7 @@ class ServersCog(commands.Cog):
     @app_commands.command(name="servers", description="サーバー一覧を書いたファイルを更新します")
     async def servers(self, interaction: discord.Interaction):
         load_dotenv()
-        developer_id = os.getenv('DEVELOPER_ID')
+        developer_id = int(os.getenv('DEVELOPER_ID'))
         if interaction.user.id != developer_id:
             embed = discord.Embed(title="❌エラー", description="このコマンドは開発者専用です")
             await interaction.response.send_message(embed=embed, ephemeral=True)
