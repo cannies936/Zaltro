@@ -9,7 +9,7 @@ class CalcModal(discord.ui.Modal):
        self.question = discord.ui.TextInput(label="{question_calc}の答えを入力してください", placeholder="例: 15", required=True, max_length=3)
        self.add_item(self.question)
   
-   async def on_submit(self, interaction: discord.interact.Interaction):
+   async def on_submit(self, interaction: discord.Interaction):
         try:
             if role in interaction.user.role:
                 embed = discord.Embed(title="❌認証に失敗しました", description="既に認証済みです", color=discord.Color.red()) 
