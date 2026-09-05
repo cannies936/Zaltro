@@ -13,7 +13,7 @@ class CalcModal(discord.ui.Modal):
         try:
             if role in interaction.user.role:
                 embed = discord.Embed(title="❌認証に失敗しました", description="既に認証済みです", color=discord.Color.red()) 
-            elif self.answer != self.test.value:
+            elif str(self.answer) != self.question.value:
                 embed = discord.Embed(title="❌認証に失敗しました", description="計算の答えが違います", color=discord.Color.red())
                 await interaction.response.send_message(embed=embed, ephemeral=True)
             elif str(self.answer) == self.question.value:
@@ -25,7 +25,7 @@ class CalcModal(discord.ui.Modal):
             await interaction.response.send_message(embed=embed, ephemeral=True)
        
 class CalcView(discord.ui.View):
-    def __init__(self, role: discord.Roles):
+    def __init__(self, role: discord.Role):
         self.role = role
         super().__init__(timeout=0)  # タイムアウト時間（秒）
     @discord.ui.button(label="認証する", style=discord.ButtonStyle.green, custom_id="calc")
