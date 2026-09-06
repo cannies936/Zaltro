@@ -22,7 +22,7 @@ class ServersCog(commands.Cog):
                 for guild in self.bot.guilds:
                     f.write(f"サーバー名: {guild.name} (ID: {guild.id})\n")
             embed = discord.Embed(title="", description="更新しました")
-            await interaction.response.followup.send(embed=embed, ephemeral=True)
+            await interaction.followup.send(embed=embed, ephemeral=True)
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(ServersCog(bot))
