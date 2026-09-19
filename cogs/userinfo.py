@@ -13,14 +13,20 @@ class UserinfoCog(commands.Cog):
         await interaction.response.defer()
         if user is None:
             user = interaction.user
-
+        join_identitifier = interaction.guild.get_member(user.id)
         embed = discord.Embed(title=f"👤 {user.global_name}のユーザー情報", color=0x2AC11C)
         embed.set_thumbnail(url=user.display_avatar.url)
         embed.add_field(name="📛 ユーザー名", value=f"{user.name}", inline=True)
         embed.add_field(name="🆔 ユーザーID", value=f"{user.id}", inline=True)
         embed.add_field(name="📝 ニックネーム", value=f"{user.display_name}", inline=True)
-        embed.add_field(name="📅 アカウント作成日", value=f"{user.created_at.strftime("%Y年%m月%d日 %H:%M")}", inline=True)
-        if isinstance(user, discord.Member) == True:
+        if user.bot:
+            type = "ボット"
+        else:
+            type = "ユーザー"
+        embed.add_field(name="👥 アカウントの種類", value=f"{type}")
+        embed.add_field(name="📅 アカウント作成日", value=f"{user.created_at.strftime("%Y年%m月%d日 %H:%M")}", inline=False)
+        if join_identitifier == True:
+            embed.add_field(name="🚪 サーバー参加日", value=f"{user.joined_at.strftime("%Y年%m月%d日 %H:%M")}", inline=False)
             if user.status == discord.Status.online:
                 user_status = "🟢 オンライン"
                 if user.is_on_mobile == True:
@@ -42,7 +48,14 @@ class UserinfoCog(commands.Cog):
             elif user.status == discord.Status.offline:
                 user_status = "🔘 オフライン"
                 user_device = "❓ 不明"
+            status_set = f"{user_status}({user_device})"
+            embed.add_field(name="📶 ステータス", value=f"{status_set}", inline=True)
+            roles = [role for role in user.roles if role.name != "@everyone"]
+            if roles:
+                roles.sort(key=lambda x: x.position, reverse=True)
+                role_names = [role.mention for role in roles]
+            
+            role_text = ", ".join(role_names)
+            embed.add_field(name="🎭 所持ロール", value=f"{}", inline=False)
         else:
             pass
-
-        embed.add_field(name="📶 ステータス", value=f"{status_set}", inline=True)
