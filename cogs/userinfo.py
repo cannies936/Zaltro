@@ -59,3 +59,4 @@ class UserinfoCog(commands.Cog):
             embed.add_field(name="🎭 所持ロール", value=f"{role_text}", inline=False)
         else:
             pass
+        await interaction.followup.send(embed=embed)
