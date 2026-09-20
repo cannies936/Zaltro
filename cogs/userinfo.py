@@ -53,9 +53,9 @@ class UserinfoCog(commands.Cog):
             roles = [role for role in user.roles if role.name != "@everyone"]
             if roles:
                 roles.sort(key=lambda x: x.position, reverse=True)
-                role_names = [role.mention for role in roles]
+                role_total = [role.mention for role in roles]
             
-            role_text = ", ".join(role_names)
-            embed.add_field(name="🎭 所持ロール", value=f"{}", inline=False)
+            role_text = ", ".join(role_total)
+            embed.add_field(name="🎭 所持ロール", value=f"{role_text}", inline=False)
         else:
             pass
