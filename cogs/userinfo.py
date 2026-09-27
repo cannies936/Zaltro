@@ -61,3 +61,6 @@ class UserinfoCog(commands.Cog):
         else:
             pass
         await interaction.followup.send(embed=embed)
+
+async def setup(bot: commands.Bot):
+    await bot.add_cog(UserinfoCog(bot))
