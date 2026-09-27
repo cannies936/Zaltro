@@ -25,28 +25,28 @@ class UserinfoCog(commands.Cog):
         else:
             type = "ユーザー"
         embed.add_field(name="👥 アカウントの種類", value=f"{type}")
-        embed.add_field(name="📅 アカウント作成日", value=f"{user.created_at.strftime("%Y年%m月%d日 %H:%M")}", inline=False)
+        embed.add_field(name="📅 アカウント作成日", value=user.created_at.strftime("%Y年%m月%d日 %H:%M"), inline=False)
         if not join_identitifier is None:
-            embed.add_field(name="🚪 サーバー参加日", value=f"{user.joined_at.strftime("%Y年%m月%d日 %H:%M")}", inline=False)
-            if user.status == discord.Status.online:
+            embed.add_field(name="🚪 サーバー参加日", value=user.joined_at.strftime("%Y年%m月%d日 %H:%M"), inline=False)
+            if join_identitifier.status == discord.Status.online:
                 user_status = "🟢 オンライン"
-                if user.is_on_mobile == True:
+                if join_identitifier.is_on_mobile == True:
                     user_device = "📱 モバイル"
                 else:
                     user_device = "🌐・💻 Web/デスクトップ"
-            elif user.status == discord.Status.idle:
+            elif join_identitifier.status == discord.Status.idle:
                 user_status = "🌙 退席中"
-                if user.is_on_mobile == True:
+                if join_identitifier.is_on_mobile == True:
                     user_device = "📱 モバイル"
                 else:
                     user_device = "🌐・💻 Web/デスクトップ"
-            elif user.status == discord.Status.idle:
+            elif join_identitifier.status == discord.Status.idle:
                 user_status = "⛔️ 取り込み中"
-                if user.is_on_mobile == True:
+                if join_identitifier.is_on_mobile == True:
                     user_device = "📱 モバイル"
                 else:
                     user_device = "🌐・💻 Web/デスクトップ"
-            elif user.status == discord.Status.offline:
+            elif join_identitifier.status == discord.Status.offline:
                 user_status = "🔘 オフライン"
                 user_device = "❓ 不明"
             status_set = f"{user_status}({user_device})"
