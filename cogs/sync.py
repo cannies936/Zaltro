@@ -23,4 +23,4 @@ class SyncCog(commands.Cog):
             await interaction.followup.send(embed=embed, ephemeral=True)
 
 async def setup(bot: commands.Bot):
-    await bot.add_cog(ServersCog(bot))
+    await bot.add_cog(SyncCog(bot))
