@@ -51,7 +51,7 @@ class UserinfoCog(commands.Cog):
                 user_device = "❓ 不明"
             status_set = f"{user_status}({user_device})"
             embed.add_field(name="📶 ステータス", value=f"{status_set}", inline=True)
-            roles = [role for role in user.roles if role.name != "@everyone"]
+            roles = [role for role in join_identitifier.roles]
             if roles:
                 roles.sort(key=lambda x: x.position, reverse=True)
                 role_total = [role.mention for role in roles]
