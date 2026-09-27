@@ -26,7 +26,7 @@ class UserinfoCog(commands.Cog):
             type = "ユーザー"
         embed.add_field(name="👥 アカウントの種類", value=f"{type}")
         embed.add_field(name="📅 アカウント作成日", value=f"{user.created_at.strftime("%Y年%m月%d日 %H:%M")}", inline=False)
-        if join_identitifier == True:
+        if not join_identitifier is None:
             embed.add_field(name="🚪 サーバー参加日", value=f"{user.joined_at.strftime("%Y年%m月%d日 %H:%M")}", inline=False)
             if user.status == discord.Status.online:
                 user_status = "🟢 オンライン"
