@@ -16,6 +16,7 @@ class ServerinfoCog(commands.Cog):
         categories = len([c for c in interaction.guild.channels if isinstance(c, discord.CategoryChannel)])
         total_channels = len(interaction.guild.channels)
         role_count = len(interaction.guild.roles) - 1
+        member_count = len(interaction.guild.members)
         humans = len([m for m in interaction.guild.members if not m.bot])
         bots = len([m for m in interaction.guild.members if m.bot])
         online_members = len([m for m in interaction.guild.members if m.status == discord.Status.online])
@@ -26,7 +27,7 @@ class ServerinfoCog(commands.Cog):
         embed.set_thumbnail(url=interaction.guild.icon.url)
         embed.add_field(name="🆔 サーバーID", value=f"{interaction.guild.id}", inline=True)
         embed.add_field(name="👑 所有者", value=f"{interaction.guild.owner.mention}{interaction.guild.owner.name}(ID: {interaction.guild.owner.id})", inline=True)
-        embed.add_field(name="📅 作成日", value=f"{interaction.guild.created_at.strftime("%Y年%m月%d日 %H:%M")}", inline=True)
+        embed.add_field(name="📅 作成日", value=f"interaction.guild.created_at.strftime("%Y年%m月%d日 %H:%M"), inline=True)
         embed.add_field(name="👥 メンバー数", value=f"**総数**: {member_count}\n👤 人間: {humans}\n🤖 ボット: {bots}", inline=True)
         embed.add_field(name="📈 オンライン状況", value=f"🟢 オンライン: {online_members}\n🌙 退席中: {idle_members}\n⛔️ 取り込み中: {dnd_members}\n🔘️ オフライン: {dnd_members}", inline=True)
         embed.add_field(name="📺 チャンネル数", value=f"**総数**: {total_channels}\n💬 テキストチャンネル: {text_channels}\n🔊 ボイスチャンネル: {voice_channels}\n📂 カテゴリー: {categories}")
