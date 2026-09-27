@@ -24,6 +24,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.guilds = True
 intents.members = True
+intents.presences = True
 
 class Zaltro(commands.Bot):
     async def setup_hook(self):
