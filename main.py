@@ -14,6 +14,9 @@ INITIAL_EXTENSIONS = [
     'cogs.purge',
     'cogs.nitrogen',
     'cogs.leave',
+    'cogs.userinfo',
+    'cogs.serverinfo',
+    'cogs.sync',
     'cogs.servers',
     'cogs.verify'
 ]
