@@ -30,7 +30,7 @@ class ServerinfoCog(commands.Cog):
         embed.add_field(name="👥 メンバー数", value=f"**総数**: {member_count}\n👤 人間: {humans}\n🤖 ボット: {bots}", inline=True)
         embed.add_field(name="📈 オンライン状況", value=f"🟢 オンライン: {online_members}\n🌙 退席中: {idle_members}\n⛔️ 取り込み中: {dnd_members}\n🔘️ オフライン: {dnd_members}", inline=True)
         embed.add_field(name="📺 チャンネル数",  embed.add_field(name="📺 チャンネル数", value=f"**総数**: {total_channels}\n💬 テキストチャンネル: {text_channels}\n🔊 ボイスチャンネル: {voice_channels}\n📂 カテゴリー: {categories}")
-        embed.add_field(name=💎 ブースト",  value=f"{guild.premium_subscription_count or 0}ブースト(レベル{guild.premium_tier})")
+        embed.add_field(name="💎 ブースト",  value=f"{guild.premium_subscription_count or 0}ブースト(レベル{guild.premium_tier})")
         embed.add_field(name="🎭 ロール数", value=f"{role_count}", inline=True)
         await interaction.followup.send(embed=embed)
 
