@@ -41,6 +41,8 @@ class UserinfoCog(commands.Cog):
                 user_device = "📱 モバイル"
             elif not join_identitifier.is_on_mobile():
                 user_device = "🌐・💻 Web/デスクトップ"
+            elif join_identitifier.bot:
+                user_device = "🔌・↔️ Websocket/HTTPインタラクション"
             else:
                 user_device = "❓ 不明"
             status_set = f"{user_status}({user_device})"
