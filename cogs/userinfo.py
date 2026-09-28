@@ -32,14 +32,14 @@ class UserinfoCog(commands.Cog):
                 user_status = "🟢 オンライン"
             elif join_identitifier.status == discord.Status.idle:
                 user_status = "🌙 退席中"
-            elif join_identitifier.status == discord.Status.idle:
+            elif join_identitifier.status == discord.Status.dnd:
                 user_status = "⛔️ 取り込み中"
             elif join_identitifier.status == discord.Status.offline:
                 user_status = "🔘 オフライン"
 
-            if join_identitifier.is_on_mobile:
+            if join_identitifier.is_on_mobile():
                 user_device = "📱 モバイル"
-            elif not join_identitifier.is_on_mobile:
+            elif not join_identitifier.is_on_mobile():
                 user_device = "🌐・💻 Web/デスクトップ"
             else:
                 user_device = "❓ 不明"
