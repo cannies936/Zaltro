@@ -30,24 +30,18 @@ class UserinfoCog(commands.Cog):
             embed.add_field(name="🚪 サーバー参加日", value=user.joined_at.strftime("%Y年%m月%d日 %H:%M"), inline=False)
             if join_identitifier.status == discord.Status.online:
                 user_status = "🟢 オンライン"
-                if join_identitifier.is_on_mobile:
-                    user_device = "📱 モバイル"
-                else:
-                    user_device = "🌐・💻 Web/デスクトップ"
             elif join_identitifier.status == discord.Status.idle:
                 user_status = "🌙 退席中"
-                if join_identitifier.is_on_mobile:
-                    user_device = "📱 モバイル"
-                else:
-                    user_device = "🌐・💻 Web/デスクトップ"
             elif join_identitifier.status == discord.Status.idle:
                 user_status = "⛔️ 取り込み中"
-                if join_identitifier.is_on_mobile:
-                    user_device = "📱 モバイル"
-                else:
-                    user_device = "🌐・💻 Web/デスクトップ"
             elif join_identitifier.status == discord.Status.offline:
                 user_status = "🔘 オフライン"
+
+            if join_identitifier.is_on_mobile:
+                user_device = "📱 モバイル"
+            elif not join_identitifier.is_on_mobile:
+                user_device = "🌐・💻 Web/デスクトップ"
+            else:
                 user_device = "❓ 不明"
             status_set = f"{user_status}({user_device})"
             embed.add_field(name="📶 ステータス", value=f"{status_set}", inline=True)
