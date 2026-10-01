@@ -36,7 +36,6 @@ class UserinfoCog(commands.Cog):
                 user_status = "⛔️ 取り込み中"
             elif join_identitifier.status == discord.Status.offline:
                 user_status = "🔘 オフライン"
-                user_device = "❓ 不明"
 
             if join_identitifier.is_on_mobile():
                 user_device = "📱 モバイル"
@@ -44,7 +43,7 @@ class UserinfoCog(commands.Cog):
                 user_device = "🔌・↔️ Websocket/HTTPインタラクション" 
             elif not join_identitifier.is_on_mobile():
                 user_device = "🌐・💻 Web/デスクトップ"
-            else:
+            elif join_identitifier.status == discord.Status.offline:
                 user_device = "❓ 不明"
             status_set = f"{user_status}({user_device})"
             embed.add_field(name="📶 ステータス", value=f"{status_set}", inline=True)
