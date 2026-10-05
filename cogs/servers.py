@@ -17,12 +17,12 @@ class ServersCog(commands.Cog):
             embed = discord.Embed(title="❌エラー", description="このコマンドは開発者専用です")
             await interaction.response.send_message(embed=embed, ephemeral=True)
         else: 
-            await interaction.response.defer()
+            await interaction.response.defer(ephemeral=True)
             with open("servers.txt", "w", encoding="utf-8") as f:
                 for guild in self.bot.guilds:
                     f.write(f"サーバー名: {guild.name} (ID: {guild.id})\n")
             embed = discord.Embed(title="", description="更新しました")
-            await interaction.followup.send(embed=embed, ephemeral=True)
+            await interaction.followup.send(embed=embed)
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(ServersCog(bot))
