@@ -41,10 +41,10 @@ class UserinfoCog(commands.Cog):
                 user_device = "📱 モバイル"
            elif join_identitifier.bot:
                 user_device = "🔌・↔️ Websocket/HTTPインタラクション" 
-            elif not join_identitifier.is_on_mobile():
-                user_device = "🌐・💻 Web/デスクトップ"
             elif join_identitifier.status == discord.Status.offline:
                 user_device = "❓ 不明"
+            elif not join_identitifier.is_on_mobile():
+                user_device = "🌐・💻 Web/デスクトップ"
             status_set = f"{user_status}({user_device})"
             embed.add_field(name="📶 ステータス", value=f"{status_set}", inline=True)
             roles = [role for role in join_identitifier.roles]
