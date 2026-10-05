@@ -11,10 +11,10 @@ class LeaveCog(commands.Cog):
         self.bot = bot
     @app_commands.command(name="leave", description="Botを脱退させます")
     @app_commands.describe(guild_id="脱退させるサーバーのID")
-    async def leave(self, interaction: discord.Interaction, guild_id: int):
+    async def leave(self, interaction: discord.Interaction, guild_id: str):
         load_dotenv()
         developer_id = int(os.getenv('DEVELOPER_ID'))
-        guild = bot.get_guild(guild_id)
+        guild = self.bot.get_guild(int(guild_id))
         if interaction.user.id != developer_id:
             embed = discord.Embed(title="❌エラー", description="このコマンドは開発者専用です")
             await interaction.response.send_message(embed=embed, ephemeral=True)
