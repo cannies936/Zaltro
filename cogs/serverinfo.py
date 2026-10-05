@@ -22,7 +22,7 @@ class ServerinfoCog(commands.Cog):
         online_members = len([m for m in interaction.guild.members if m.status == discord.Status.online])
         idle_members = len([m for m in interaction.guild.members if m.status == discord.Status.idle])
         dnd_members = len([m for m in interaction.guild.members if m.status == discord.Status.dnd])
-        offline_members = len([m for m in interaction.guild.members if m.status == discord.Status.offline])
+        offline_members = member_count - (online_members + idle_members + dnd_members)     
         embed = discord.Embed(title=f"📊 {interaction.guild.name}のサーバー情報", color=0x2AC11C)
         embed.set_thumbnail(url=interaction.guild.icon.url)
         embed.add_field(name="🆔 サーバーID", value=f"{interaction.guild.id}", inline=True)
