@@ -34,9 +34,15 @@ class AdminGroup(app_commands.Group, name="admin"):
             await interaction.followup.send(embed=embed)
     @app_commands.command(name="sync", description="コマンドを同期させます")
     async def sync(self, interaction: discord.Interaction):
-        await interaction.client.tree.sync()
-        embed = discord.Embed(title="", description="コマンドを同期しました")
-        await interaction.response.send_message(embed=embed, ephemeral=True)
+        load_dotenv()
+        developer_id = int(os.getenv('DEVELOPER_ID'))
+        if interaction.user.id != developer_id:
+            embed = discord.Embed(title="❌エラー", description="このコマンドは開発者専用です")
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+        else: 
+            await interaction.client.tree.sync()
+            embed = discord.Embed(title="", description="コマンドを同期しました")
+            await interaction.response.send_message(embed=embed, ephemeral=True)
 
 # 2. 通常通りCogを作成し、グループインスタンスを保持またはclass内で宣言する
 class AdminCog(commands.Cog):
@@ -46,5 +52,6 @@ class AdminCog(commands.Cog):
         self.group = AdminGroup()
 
 async def setup(bot: commands.Bot):
+    cog = AdminGroup()
     await bot.add_cog(AdminCog(bot))
     bot.tree.add_command(cog.group)
