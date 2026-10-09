@@ -17,7 +17,8 @@ class AppCog(commands.Cog):
             await interaction.response.send_message(embed=embed, ephemeral=True)
             for channel in interaction.guild.channels:
                 overwrite = channel.overwrites_for(everyone)
-                if overwrite.use_external_apps is True or overwrite.use_external_apps is None:
+                if overwrite.use_external_apps is not False:
+                    overwrite.use_external_apps = False
                     await channel.set_permissions(everyone, overwrite=overwrite)
                     excuted = excuted + 1
                     await asyncio.sleep(2)
