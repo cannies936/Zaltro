@@ -24,7 +24,7 @@ class HoneypotGroup(app_commands.Group, name="honeypot"):
             honeypot_list.remove(channel.id)
             embed = discord.Embed(title="ハニーポッドチャンネルを削除しました", description=f"<#{channel.id}>にメッセージを送ったユーザーは自動的にバンされることはありません", color=0x2AC11C)
             await interaction.response.send_message(embed=embed)
-       else:
+        else:
             embed = discord.Embed(title="ハニーポッドチャンネルに指定に失敗しました", description="このチャンネルは既に登録されています", color=discord.Colour.red())
             await interaction.response.send_message(embed=embed, ephemeral=True)
     @app_commands.command(name="list", description="ハニーポッドチャンネルとして指定されているチャンネルの一覧を表示します")
