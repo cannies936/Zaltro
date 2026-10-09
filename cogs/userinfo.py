@@ -39,7 +39,7 @@ class UserinfoCog(commands.Cog):
 
             if join_identitifier.is_on_mobile():
                 user_device = "📱 モバイル"
-           elif join_identitifier.bot and not join_identitifier.status == discord.Status.offline:
+            elif join_identitifier.bot and not join_identitifier.status == discord.Status.offline:
                 user_device = "🔌・↔️ Websocket/HTTPインタラクション" 
             elif join_identitifier.status == discord.Status.offline:
                 user_device = "❓ 不明"
