@@ -20,7 +20,7 @@ class AppCog(commands.Cog):
                 if overwrite.use_external_apps is True or overwrite.use_external_apps is None:
                     await channel.set_permissions(everyone, overwrite=overwrite)
                     excuted = excuted + 1
-                    asyncio.sleep(2)
+                    await asyncio.sleep(2)
                 else:
                     bypass = bypass + 1
                     pass
