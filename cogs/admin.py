@@ -1,6 +1,7 @@
 import discord
 from discord import app_commands
 from discord.ext import commands
+import asyncio
 
 class AdminGroup(app_commands.Group, name="admin"):
     @app_commands.command(name="leave", description="Botを脱退させます")
