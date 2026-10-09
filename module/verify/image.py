@@ -23,7 +23,7 @@ class ImageView(discord.ui.View):
         image = captcha_image.generate(captcha_code)
         image_bytes = io.BytesIO(image.read())
         file = discord.File(fp=image_bytes, filename="captcha.png")
-        select_menu = discord.ui.Select(placeholder="画像に書かれた文字を選択してください", min_values=1, max_values=1, custom_id="image_select", options=[discord.SelectOption(label=option, value=option) for option in captcha_source], custom_id="captcha_image")
+        select_menu = discord.ui.Select(placeholder="画像に書かれた文字を選択してください", min_values=1, max_values=1, custom_id="image_select", options=[discord.SelectOption(label=option, value=option) for option in captcha_source])
         async def select_callback(select_interaction: discord.Interaction):
             await select_interaction.response.defer()
             choice = select_menu.values[0]
