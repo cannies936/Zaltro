@@ -16,7 +16,9 @@ INITIAL_EXTENSIONS = [
     'cogs.userinfo',
     'cogs.serverinfo',
     'cogs.verify',
-    'cog.honeypot'
+    'cogs.honeypot',
+    'cogs.admin',
+    'cogs.disable_apps'
 ]
 
 intents = discord.Intents.default()
