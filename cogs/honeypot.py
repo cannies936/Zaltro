@@ -37,16 +37,16 @@ class HoneypotCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.group = HoneypotGroup()
-   @commands.Cog.listener()
-   async def on_message(self, message: discord.Message):
-       if message.channel.id in honeypot_list:
-   	       permission = message.author.guild_permissions
-           if permission.ban_members or message.author.bot:
-               pass
-           else:
-               await message.guild.ban(message.author, reason="ハニーポッドチャンネルでの投稿", delete_message_seconds=3600)
-       else:
-      	   pass
+    @commands.Cog.listener()
+    async def on_message(self, message: discord.Message):
+        if message.channel.id in honeypot_list:
+   	        permission = message.author.guild_permissions
+            if permission.ban_members or message.author.bot:
+                pass
+            else:
+                await message.guild.ban(message.author, reason="ハニーポッドチャンネルでの投稿", delete_message_seconds=3600)
+        else:
+      	    pass
 
 async def setup(bot: commands.Bot):
         cog = HoneypotCog(bot)
