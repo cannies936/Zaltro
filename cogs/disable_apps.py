@@ -10,17 +10,14 @@ class AppCog(commands.Cog):
     @app_commands.command(name="disable_apps",description="外部アプリ対策をします")
     @app_commands.checks.has_permissions(administrator=True)
     async def disable_apps(self, interaction: discord.Interaction):
-        excuted, bypass = 0
+        excuted = bypass = 0
         everyone = interaction.guild.default_role
-        overwrite = discord.PermissionOverwrite()
-        overwrite.use_external_apps = False
         try:
             embed = discord.Embed(title="実行中…", description="この操作は数分程度かかる場合があります...", color=0x2AC11C)
             await interaction.response.send_message(embed=embed, ephemeral=True)
             for channel in interaction.guild.channels:
-                overwrite_check = channel.overwrites_for(everyone)
-                result = overwrite_check.use_external_apps
-                if result is True or result is None:
+                overwrite = channel.overwrites_for(everyone)
+                if overwrite.use_external_apps is True or overwrite.use_external_apps is None:
                     await channel.set_permissions(everyone, overwrite=overwrite)
                     excuted = excuted + 1
                     asyncio.sleep(2)
