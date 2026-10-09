@@ -3,6 +3,7 @@ from discord.ext import commands
 import asyncio
 import os
 from dotenv import load_dotenv
+from module.verify import CalcModal, ImageView, NomalView
 INITIAL_EXTENSIONS = [
     'cogs.ban',
     'cogs.kick',
@@ -34,6 +35,9 @@ class Zaltro(commands.Bot):
         
     async def on_ready(self):
         print(f"{self.user}としてログインしました(ID:{self.user.id})")
+        self.add_view(NomalView())
+        self.add_view(ImageView())
+        self.add_view(CalcModal())
 
 bot = Zaltro(command_prefix='/', intents=intents)
 load_dotenv()
