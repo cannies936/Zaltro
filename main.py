@@ -13,11 +13,10 @@ INITIAL_EXTENSIONS = [
     'cogs.supurite',
     'cogs.purge',
     'cogs.nitrogen',
-    'cogs.leave',
     'cogs.userinfo',
     'cogs.serverinfo',
-    'cogs.servers',
-    'cogs.verify'
+    'cogs.verify',
+    'cog.honeypot'
 ]
 
 intents = discord.Intents.default()
