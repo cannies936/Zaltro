@@ -17,7 +17,7 @@ class AdminGroup(app_commands.Group, name="admin"):
             await interaction.response.send_message(embed=embed, ephemeral=True)
         else:   
             await guild.leave()
-            embed = discord.Embed(title="", description="{guild.name}({guild_id})から脱退しました")
+            embed = discord.Embed(title="", description=f"{guild.name}({guild_id})から脱退しました")
             await interaction.response.send_message(embed=embed, ephemeral=True)
 
     @app_commands.command(name="servers", description="サーバー一覧を書いたファイルを更新します")
