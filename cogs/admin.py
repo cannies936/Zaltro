@@ -2,6 +2,8 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 import asyncio
+from dotenv import load_dotenv
+import os
 
 class AdminGroup(app_commands.Group, name="admin"):
     @app_commands.command(name="leave", description="Botを脱退させます")
@@ -9,7 +11,7 @@ class AdminGroup(app_commands.Group, name="admin"):
     async def leave(self, interaction: discord.Interaction, guild_id: str):
         load_dotenv()
         developer_id = int(os.getenv('DEVELOPER_ID'))
-        guild = self.interaction.client.get_guild(int(guild_id))
+        guild = interaction.client.get_guild(int(guild_id))
         if interaction.user.id != developer_id:
             embed = discord.Embed(title="❌エラー", description="このコマンドは開発者専用です")
             await interaction.response.send_message(embed=embed, ephemeral=True)
