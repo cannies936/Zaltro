@@ -8,22 +8,19 @@ class DiceCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @commands.Cog.listener()
-    async def on_ready(self):
-        await self.bot.tree.sync()
-    
     @app_commands.command(name="dice",description="サイコロを振ります")
     @app_commands.checks.cooldown(2, 60, key=lambda interaction: interaction.user.id)
     async def dice(self, interaction: discord.Interaction):
-      try:
-          dice_notation = random.randint(1, 6)
-          await interaction.response.send_message(f"🎲 サイコロの結果: **{dice_notation}**")
-      except app_commands.CommandInvokeError as e:
-          embed = discord.Embed(title="実行に失敗しました", description=f"コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
-          await interaction.response.send_message(embed=embed, ephemeral=True)
-      except app_commands.CommandOnCooldown:
-          embed = discord.Embed(title="実行に失敗しました", description="実行してから1分間程度は使えません", color=discord.Colour.red())
-          await interaction.response.send_message(embed=embed, ephemeral=True)
+        dice_notation = random.randint(1, 6)
+        await interaction.response.send_message(f"🎲 サイコロの結果: **{dice_notation}**")
+    @dice.error
+    async def dice_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError)
+        if isinstance(error, app_commands.CommandInvokeError):
+            embed = discord.Embed(title="実行に失敗しました", description=f"コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+        if isinstance(error, app_commands.CommandOnCooldown):
+            embed = discord.Embed(title="実行に失敗しました", description=f"{error.retry_after}秒待機してください", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot):
     await bot.add_cog(DiceCog(bot))
