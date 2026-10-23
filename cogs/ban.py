@@ -21,7 +21,7 @@ class BanCog(commands.Cog):
             embed.add_field(name="Reason", value=f"{reason}", inline=False)
             await interaction.response.send_message(embed=embed)
     @ban.error
-    async def ban_error(interaction: discord.Interaction, error):
+    async def ban_error(interaction: discord.Interaction, error: app_commands.AppCommandError):
         if isiestance(error, app_commands.MissingPermissions):
             embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:\nメンバーをバン", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
