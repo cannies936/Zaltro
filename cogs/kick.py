@@ -20,8 +20,8 @@ class KickCog(commands.Cog):
         embed.add_field(name="Modertor", value="{interaction.user}", inline=False)
         embed.add_field(name="Reason", value="{reason}", inline=False)
         await interaction.response.send_message(embed=embed)
-   @kick.error
-   async def kick_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
+    @kick.error
+    async def kick_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
         if isinstance(app_commands.MissingPermissions):
             embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:メンバーをキック", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
