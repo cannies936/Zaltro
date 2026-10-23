@@ -29,9 +29,10 @@ class HoneypotGroup(app_commands.Group, name="honeypot"):
             await interaction.response.send_message(embed=embed, ephemeral=True)
     @app_commands.command(name="list", description="ハニーポッドチャンネルとして指定されているチャンネルの一覧を表示します")
     async def list(self, interaction: discord.Interaction):
+        await interaction.response.defer()
         channels = "\n".join([f"<#{channel_id}>" for channel_id in honeypot_list])
         embed = discord.Embed(title="ハニーポッドチャンネルの一覧", description=channels, color=0x2AC11C)
-        await interaction.response.send_message(embed=embed, color=0x2AC11C)
+        await interaction.followup.send(embed=embed, color=0x2AC11C)
 
 class HoneypotCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
