@@ -16,9 +16,9 @@ class DiceCog(commands.Cog):
     @dice.error
     async def dice_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError)
         if isinstance(error, app_commands.CommandInvokeError):
-            embed = discord.Embed(title="実行に失敗しました", description=f"コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
+            embed = discord.Embed(title="実行に失敗しました", description=f"コマンドの実行に失敗しました:{error.text}", color=discord.Colour.red())
             await interaction.response.send_message(embed=embed, ephemeral=True)
-        if isinstance(error, app_commands.CommandOnCooldown):
+        elif isinstance(error, app_commands.CommandOnCooldown):
             embed = discord.Embed(title="実行に失敗しました", description=f"{error.retry_after}秒待機してください", color=discord.Colour.red())
             await interaction.response.send_message(embed=embed, ephemeral=True)
 
