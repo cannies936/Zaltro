@@ -28,12 +28,21 @@ class ServerinfoCog(commands.Cog):
         embed.add_field(name="🆔 サーバーID", value=f"{interaction.guild.id}", inline=True)
         embed.add_field(name="👑 所有者", value=f"{interaction.guild.owner.mention}{interaction.guild.owner.name}(ID: {interaction.guild.owner.id})", inline=True)
         embed.add_field(name="📅 作成日", value=interaction.guild.created_at.strftime("%Y年%m月%d日 %H:%M"), inline=True)
-        embed.add_field(name="👥 メンバー数", value=f"**総数**: {member_count}\n👤 人間: {humans}\n🤖 ボット: {bots}", inline=True)
+        embed.add_field(name="👥 メンバー数", value=f"**総数**: {member_count}\n👤 ユーザー: {humans}\n🤖 ボット: {bots}", inline=True)
         embed.add_field(name="📈 オンライン状況", value=f"🟢 オンライン: {online_members}\n🌙 退席中: {idle_members}\n⛔️ 取り込み中: {dnd_members}\n🔘️ オフライン: {offline_members}", inline=True)
         embed.add_field(name="📺 チャンネル数", value=f"**総数**: {total_channels}\n💬 テキストチャンネル: {text_channels}\n🔊 ボイスチャンネル: {voice_channels}\n📂 カテゴリー: {categories}")
         embed.add_field(name="💎 ブースト",  value=f"{interaction.guild.premium_subscription_count or 0}ブースト(レベル{interaction.guild.premium_tier})")
         embed.add_field(name="🎭 ロール数", value=f"{role_count}", inline=True)
         await interaction.followup.send(embed=embed)
+
+    @serverinfo.error
+        async def disable_apps_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
+            if isinstance(error, discord.HTTPException):
+                embed = discord.Embed(title="実行に失敗しました", description=f"Error Code:{error.code}\nError Message:{error.text}", color=discord.Colour.red())
+                await interaction.response.send_message(embed=embed, ephemeral=True)
+            elif isinstance(error, app_commands.CommandInvokeError):
+                embed = embed=discord.Embed(title="実行に失敗しました", description=f"コマンド実行中にエラーが発生しました:{error.original}", color=discord.Colour.red())
+                await interaction.response.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(ServerinfoCog(bot))
