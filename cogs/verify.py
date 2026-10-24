@@ -14,29 +14,33 @@ class VerifyCog(commands.Cog):
     @app_commands.checks.has_permissions(administrator=True)
     @app_commands.checks.bot_has_permissions(manage_roles=True)
     async def verify(self, interaction: discord.Interaction, type: Literal["通常", "計算", "画像"], role: discord.Role):
-        try:
-            if type == "通常":
-                result_embed = discord.Embed(title="✅", description="パネルが送信されました")
-                embed = discord.Embed(title="認証パネル", description=f"<@&{role.id}>を貰うにはボタンを押して認証してください")
-                view = nomal.NomalView(role)
-                await interaction.response.send_message(embed=result_embed, ephemeral=True)
-                await interaction.channel.send(embed=embed, view=view)
-            elif type == "計算":
-                result_embed = discord.Embed(title="✅", description="パネルが送信されました")
-                embed = discord.Embed(title="認証パネル", description=f"<@&{role.id}>を貰うにはボタンを押して認証してください")
-                view = calc.CalcView(role)
-                await interaction.response.send_message(embed=result_embed, ephemeral=True)
-                await interaction.channel.send(embed=embed, view=view)
-            else:
-                result_embed = discord.Embed(title="✅", description="パネルが送信されました")
-                embed = discord.Embed(title="認証パネル", description=f"<@&{role.id}>を貰うにはボタンを押して認証してください")
-                view = image.ImageView(role)
-                await interaction.response.send_message(embed=result_embed, ephemeral=True)
-                await interaction.channel.send(embed=embed, view=view)
-        except Forbidden:
-            embed = discord.Embed(title="❌エラー", description="権限が不足しています")
-            await interaction.response.send_message(embed=embed, ephemeral=True)
-
+        if type == "通常":
+            result_embed = discord.Embed(title="✅", description="パネルが送信されました")
+            embed = discord.Embed(title="認証パネル", description=f"<@&{role.id}>を貰うにはボタンを押して認証してください")
+            view = nomal.NomalView(role)
+            await interaction.response.send_message(embed=result_embed, ephemeral=True)
+            await interaction.channel.send(embed=embed, view=view)
+        elif type == "計算":
+            result_embed = discord.Embed(title="✅", description="パネルが送信されました")
+            embed = discord.Embed(title="認証パネル", description=f"<@&{role.id}>を貰うにはボタンを押して認証してください")
+            view = calc.CalcView(role)
+            await interaction.response.send_message(embed=result_embed, ephemeral=True)
+            await interaction.channel.send(embed=embed, view=view)
+        else:
+            result_embed = discord.Embed(title="✅", description="パネルが送信されました")
+            embed = discord.Embed(title="認証パネル", description=f"<@&{role.id}>を貰うにはボタンを押して認証してください")
+            view = image.ImageView(role)
+            await interaction.response.send_message(embed=result_embed, ephemeral=True)
+            await interaction.channel.send(embed=embed, view=view)
+    
+    @verify.error
+    async def verify_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
+        if isinstance(app_commands.MissingPermissions):
+            embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:管理者", color=discord.Colour.red())
+            await interaction.send_message(embed=embed, ephemeral=True)
+        elif isinstance(error, app_commands.BotMissingPermissions):
+            embed = discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:ロールを管理", color=discord.Colour.red())
+            await interaction.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(VerifyCog(bot))
