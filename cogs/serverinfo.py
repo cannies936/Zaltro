@@ -36,13 +36,13 @@ class ServerinfoCog(commands.Cog):
         await interaction.followup.send(embed=embed)
 
     @serverinfo.error
-        async def disable_apps_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
-            if isinstance(error, discord.HTTPException):
-                embed = discord.Embed(title="実行に失敗しました", description=f"Error Code:{error.code}\nError Message:{error.text}", color=discord.Colour.red())
-                await interaction.response.send_message(embed=embed, ephemeral=True)
-            elif isinstance(error, app_commands.CommandInvokeError):
-                embed = embed=discord.Embed(title="実行に失敗しました", description=f"コマンド実行中にエラーが発生しました:{error.original}", color=discord.Colour.red())
-                await interaction.response.send_message(embed=embed, ephemeral=True)
+    async def disable_apps_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
+        if isinstance(error, discord.HTTPException):
+            embed = discord.Embed(title="実行に失敗しました", description=f"Error Code:{error.code}\nError Message:{error.text}", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+        elif isinstance(error, app_commands.CommandInvokeError):
+            embed = embed=discord.Embed(title="実行に失敗しました", description=f"コマンド実行中にエラーが発生しました:{error.original}", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(ServerinfoCog(bot))
