@@ -16,24 +16,27 @@ class UnbanCog(commands.Cog):
     @app_commands.describe(user="バンを解除するユーザー", reason="バンを解除する理由")
     
     async def unban(self, interaction: discord.Interaction, user: discord.User, reason: str = "理由が入力されてません"):
-        try:
-            audit_reason = f"実行者: {interaction.user} | 理由: {reason}"     
-            await interaction.guild.unban(user, reason=audit_reason)
-            embed = discord.Embed(title="Unban Result:", color=0x2AC11C)
-            embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
-            embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
-            embed.add_field(name="Reason", value=f"{reason}", inline=False)
-            await interaction.response.send_message(embed=embed)
-        except app_commands.MissingPermissions:
+        audit_reason = f"実行者: {interaction.user} | 理由: {reason}"     
+        await interaction.guild.unban(user, reason=audit_reason)
+        embed = discord.Embed(title="Unban Result:", color=0x2AC11C)
+        embed.add_field(name="Target", value=f"{user.display_name}({user.id})", inline=False)
+        embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
+        embed.add_field(name="Reason", value=f"{reason}", inline=False)
+        await interaction.response.send_message(embed=embed)
+      
+    @unban.error
+    async def unban_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
+        if isinstance(error, app_commands.MissingPermissions):
             embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:メンバーをバン", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
-        except app_commands.BotMissingPermissions:
+        elif isinstance(error, app_commands.BotMissingPermissions):
             embed = discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:メンバーをバン", color=discord.Colour.red())
-        except discord.HTTPException as e:
-            embed = discord.Embed(title="実行に失敗しました", description="Error Code:{e.code}\nError Message:{e.text}", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
-        except app_commands.CommandInvokeError as e:
-            embed = discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{e}", color=discord.Colour.red())
+        elif isinstance(error, discord.HTTPException):
+            embed = discord.Embed(title="実行に失敗しました", description="Error Code:{error.code}\nError Message:{error.text}", color=discord.Colour.red())
+            await interaction.send_message(embed=embed, ephemeral=True)
+        elif isinstance(error, app_commands.CommandInvokeError):
+            embed = discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{error.original}", color=discord.Colour.red())
             await interaction.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot):
