@@ -44,7 +44,7 @@ class HoneypotCog(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
         if message.channel.id in honeypot_list:
-   	        permission = message.author.guild_permissions
+            permission = message.author.guild_permissions
             if permission.ban_members or message.author.bot:
                 return
             else:
