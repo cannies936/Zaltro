@@ -3,7 +3,7 @@ from discord.ext import commands
 import asyncio
 import os
 from dotenv import load_dotenv
-from module.verify import calc, image, nomao
+from module.verify import calc, image, nomal
 INITIAL_EXTENSIONS = [
     'cogs.ban',
     'cogs.kick',
