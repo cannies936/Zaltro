@@ -30,7 +30,8 @@ class HoneypotGroup(app_commands.Group, name="honeypot"):
     async def list(self, interaction: discord.Interaction):
         await interaction.response.defer()
         if len(honeypot_list) == 0:
-            return
+            embed = discord.Embed(title="実行に失敗しました", description="")
+            await interaction.followup.send(embed=embed)
         else:
             channels = "\n".join([f"<#{channel_id}>" for channel_id in honeypot_list])
             embed = discord.Embed(title="ハニーポッドチャンネルの一覧", description=channels, color=0x2AC11C)
@@ -48,8 +49,6 @@ class HoneypotCog(commands.Cog):
                 return
             else:
                 await message.guild.ban(message.author, reason="ハニーポッドチャンネルでの投稿", delete_message_seconds=3600)
-        else:
-      	    pass
 
 async def setup(bot: commands.Bot):
         cog = HoneypotCog(bot)
