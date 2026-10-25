@@ -59,7 +59,7 @@ class UserinfoCog(commands.Cog):
         await interaction.followup.send(embed=embed)
     
     @userinfo.error
-    async def serverinfo_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
+    async def userinfo_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
         if isinstance(error, discord.HTTPException):
             embed = discord.Embed(title="実行に失敗しました", description=f"Error Code:{error.code}\nError Message:{error.text}", color=discord.Colour.red())
             await interaction.response.send_message(embed=embed, ephemeral=True)
