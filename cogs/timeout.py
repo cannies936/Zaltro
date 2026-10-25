@@ -23,20 +23,20 @@ class TimeoutCog(commands.Cog):
         embed.add_field(name="Reason", value=f"{reason}", inline=False)
         await interaction.response.send_message(embed=embed)
      
-     @timeout.error
-     async def timeout_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
-         if isinstance(error, app_commands.MissingPermissions):
-             embed = discord.embed=discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:メンバーをタイムアウト", color=discord.Colour.red())
-             await interaction.response.send_message(embed=embed, ephemeral=True)
-         elif isinstance(error, app_commands.BotMissingPermissions):
-             embed = discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:メンバーをタイムアウト", color=discord.Colour.red())
-             await interaction.response.send_message(embed=embed, ephemeral=True)
-         elif isinstance(error, discord.HTTPException):
-             embed = discord.Embed(title="実行に失敗しました", description=f"Error Code:{error.code}\nError Message:{error.text}", color=discord.Colour.red())
-             await interaction.response.send_message(embed=embed, ephemeral=True)
-         elif isinstance(error, app_commands.CommandInvokeError):
-             embed = discord.Embed(title="実行に失敗しました", description=f"コマンド実行中にエラーが発生しました:{error.original}", color=discord.Colour.red())
-             await interaction.response.send_message(embed=embed, ephemeral=True)
+    @timeout.error
+    async def timeout_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
+        if isinstance(error, app_commands.MissingPermissions):
+            embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:メンバーをタイムアウト", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+        elif isinstance(error, app_commands.BotMissingPermissions):
+            embed = discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:メンバーをタイムアウト", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+        elif isinstance(error, discord.HTTPException):
+            embed = discord.Embed(title="実行に失敗しました", description=f"Error Code:{error.code}\nError Message:{error.text}", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+        elif isinstance(error, app_commands.CommandInvokeError):
+            embed = discord.Embed(title="実行に失敗しました", description=f"コマンド実行中にエラーが発生しました:{error.original}", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot):
     await bot.add_cog(TimeoutCog(bot))
