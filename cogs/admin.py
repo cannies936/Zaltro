@@ -54,6 +54,6 @@ class AdminCog(commands.Cog):
         self.group = AdminGroup()
 
 async def setup(bot: commands.Bot):
-    cog = AdminGroup()
-    await bot.add_cog(AdminCog(bot))
+    cog = AdminCog(bot)
+    await bot.add_cog(cog)
     bot.tree.add_command(cog.group)
