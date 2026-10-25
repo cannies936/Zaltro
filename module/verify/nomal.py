@@ -12,7 +12,7 @@ class NomalView(discord.ui.View):
                 embed = discord.Embed(title="❌エラー", description="認証に失敗しました: 既に認証済みです", color=discord.Color.red())
                 await interaction.response.send_message(embed=embed, ephemeral=True)
             else:
-                interaction.user.add_roles(self.role, reason="Zaltro即時認証")
+                await interaction.user.add_roles(self.role, reason="Zaltro即時認証")
                 embed = discord.Embed(title="", description="✅認証しました", color=discord.Color.green())
                 await interaction.response.send_message(embed=embed, ephemeral=True)
         except discord.Forbidden:
