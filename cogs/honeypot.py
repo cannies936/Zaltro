@@ -5,7 +5,6 @@ import asyncio
 
 honeypot_list = []
 
-# 1. app_commands.Groupでコマンドグループを作成する
 class HoneypotGroup(app_commands.Group, name="honeypot"):
     @app_commands.command(name="add", description="指定したチャンネルをハニーポッドチャンネルから追加します")
     @app_commands.describe(channel="指定のチャンネル")
@@ -30,9 +29,12 @@ class HoneypotGroup(app_commands.Group, name="honeypot"):
     @app_commands.command(name="list", description="ハニーポッドチャンネルとして指定されているチャンネルの一覧を表示します")
     async def list(self, interaction: discord.Interaction):
         await interaction.response.defer()
-        channels = "\n".join([f"<#{channel_id}>" for channel_id in honeypot_list])
-        embed = discord.Embed(title="ハニーポッドチャンネルの一覧", description=channels, color=0x2AC11C)
-        await interaction.followup.send(embed=embed, color=0x2AC11C)
+        if len(honeypot_list) == 0:
+            return
+        else:
+            channels = "\n".join([f"<#{channel_id}>" for channel_id in honeypot_list])
+            embed = discord.Embed(title="ハニーポッドチャンネルの一覧", description=channels, color=0x2AC11C)
+            await interaction.followup.send(embed=embed)
 
 class HoneypotCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -43,7 +45,7 @@ class HoneypotCog(commands.Cog):
         if message.channel.id in honeypot_list:
    	        permission = message.author.guild_permissions
             if permission.ban_members or message.author.bot:
-                pass
+                return
             else:
                 await message.guild.ban(message.author, reason="ハニーポッドチャンネルでの投稿", delete_message_seconds=3600)
         else:
