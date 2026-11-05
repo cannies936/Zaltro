@@ -14,7 +14,7 @@ def code_generate():
 class ImageView(discord.ui.View):
     def __init__(self, role: discord.Role):
         self.role = role
-        super().__init__(timeout=0)
+        super().__init__(timeout=None)
     @discord.ui.button(label="認証する", style=discord.ButtonStyle.green, custom_id="image")
     async def image(self, interaction: discord.Interaction, button: discord.ui.Button):
         captcha_source = [code_generate() for _ in range(5)]
