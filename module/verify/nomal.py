@@ -4,7 +4,7 @@ import asyncio
 class NomalView(discord.ui.View):
     def __init__(self, role: discord.Role):
         self.role = role
-        super().__init__(timeout=0)
+        super().__init__(timeout=None)
     @discord.ui.button(label="認証する", style=discord.ButtonStyle.green, custom_id="nomal")
     async def nomal(self, interaction: discord.Interaction, button: discord.ui.Button):
         try:
