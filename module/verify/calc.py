@@ -11,8 +11,9 @@ class CalcModal(discord.ui.Modal):
   
    async def on_submit(self, interaction: discord.Interaction):
         try:
-            if role in interaction.user.roles:
-                embed = discord.Embed(title="❌認証に失敗しました", description="既に認証済みです", color=discord.Color.red()) 
+            if self.role in interaction.user.roles:
+                embed = discord.Embed(title="❌認証に失敗しました", description="既に認証済みです", color=discord.Color.red())
+                await interaction.response.send_message(embed=embed, ephemeral=True)
             elif str(self.answer) != self.question.value:
                 embed = discord.Embed(title="❌認証に失敗しました", description="計算の答えが違います", color=discord.Color.red())
                 await interaction.response.send_message(embed=embed, ephemeral=True)
