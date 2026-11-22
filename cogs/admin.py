@@ -27,11 +27,11 @@ class AdminGroup(app_commands.Group, name="admin"):
     async def servers(self, interaction: discord.Interaction):
         load_dotenv()
         developer_id = int(os.getenv('DEVELOPER_ID'))
+        await interaction.response.defer(ephemeral=True)
         if interaction.user.id != developer_id:
             embed = discord.Embed(title="❌エラー", description="このコマンドは開発者専用です")
-            await interaction.response.send_message(embed=embed, ephemeral=True)
+            await interaction.followup.send(embed=embed)
         else: 
-            await interaction.response.defer(ephemeral=True)
             with open("servers.txt", "w", encoding="utf-8") as f:
                 for guild in interaction.client.guilds:
                     f.write(f"サーバー名: {guild.name} (ID: {guild.id})\n")
@@ -41,13 +41,14 @@ class AdminGroup(app_commands.Group, name="admin"):
     async def sync(self, interaction: discord.Interaction):
         load_dotenv()
         developer_id = int(os.getenv('DEVELOPER_ID'))
+        await interaction.response.defer(ephemeral=True)
         if interaction.user.id != developer_id:
             embed = discord.Embed(title="❌エラー", description="このコマンドは開発者専用です")
-            await interaction.response.send_message(embed=embed, ephemeral=True)
+            await interaction.followup.send(embed=embed)
         else: 
             await interaction.client.tree.sync()
             embed = discord.Embed(title="", description="コマンドを同期しました")
-            await interaction.response.send_message(embed=embed, ephemeral=True)
+            await interaction.followup.send(embed=embed)
 
 # 2. 通常通りCogを作成し、グループインスタンスを保持またはclass内で宣言する
 class AdminCog(commands.Cog):
