@@ -15,6 +15,9 @@ class AdminGroup(app_commands.Group, name="admin"):
         if interaction.user.id != developer_id:
             embed = discord.Embed(title="❌エラー", description="このコマンドは開発者専用です")
             await interaction.response.send_message(embed=embed, ephemeral=True)
+        elif guild is None:
+            embed = discord.Embed(title="", description=f"サーバーが見つかりません")
+            await interaction.response.send_message(embed=embed, ephemeral=True)
         else:   
             await guild.leave()
             embed = discord.Embed(title="", description=f"{guild.name}({guild_id})から脱退しました")
