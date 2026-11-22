@@ -25,16 +25,16 @@ class UnbanCog(commands.Cog):
     async def unban_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
         if isinstance(error, app_commands.MissingPermissions):
             embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:メンバーをバン", color=discord.Colour.red())
-            await interaction.send_message(embed=embed, ephemeral=True)
+            await interaction.response.send_message(embed=embed, ephemeral=True)
         elif isinstance(error, app_commands.BotMissingPermissions):
             embed = discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:メンバーをバン", color=discord.Colour.red())
-            await interaction.send_message(embed=embed, ephemeral=True)
+            await interaction.response.send_message(embed=embed, ephemeral=True)
         elif isinstance(error, discord.HTTPException):
-            embed = discord.Embed(title="実行に失敗しました", description="Error Code:{error.code}\nError Message:{error.text}", color=discord.Colour.red())
-            await interaction.send_message(embed=embed, ephemeral=True)
+            embed = discord.Embed(title="実行に失敗しました", description=f"Error Code:{error.code}\nError Message:{error.text}", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
         elif isinstance(error, app_commands.CommandInvokeError):
-            embed = discord.Embed(title="実行に失敗しました", description="コマンド実行中にエラーが発生しました:{error.original}", color=discord.Colour.red())
-            await interaction.send_message(embed=embed, ephemeral=True)
+            embed = discord.Embed(title="実行に失敗しました", description=f"コマンド実行中にエラーが発生しました:{error.original}", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot):
     await bot.add_cog(UnbanCog(bot))
