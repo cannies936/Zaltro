@@ -15,7 +15,8 @@ class NitroView(discord.ui.View):
             if isinstance(item, discord.ui.Button):
                 item.disabled = True
         embed = discord.Embed(title="あなたにNitroが贈呈されています！", description="どうやら期限が切れたようです...", color=discord.Colour.fuchsia())
-        self.message.edit(embed=embed, view=self)
+        if self.message is not None:
+            await self.message.edit(embed=embed, view=self)
  
 class NitroCog(commands.Cog):
     def __init__(self, bot):
@@ -25,11 +26,12 @@ class NitroCog(commands.Cog):
     @app_commands.checks.cooldown(2, 60, key=lambda interaction: interaction.user.id)
     async def nitrogen(self, interaction: discord.Interaction):
         embed = discord.Embed(title="あなたにNitroが贈呈されています！", description=f"{interaction.user}があなたたちにNitroを送りました！", color=discord.Colour.fuchsia())
-        await interaction.response.send_message(embed=embed, view=NitroView())
+        view=NitroView()
+        await interaction.response.send_message(embed=embed, view=view)
     @nitrogen.error
     async def nitrogen_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
         if isinstance(error, app_commands.CommandOnCooldown):
-            embed = discord.Embed(title="実行に失敗しました", description="{error.retry_after}秒待機してください", color=discord.Colour.red())
+            embed = discord.Embed(title="実行に失敗しました", description=f"{error.retry_after}秒待機してください", color=discord.Colour.red())
             await interaction.response.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot):
