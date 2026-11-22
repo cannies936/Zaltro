@@ -9,6 +9,7 @@ class AppCog(commands.Cog):
     
     @app_commands.command(name="disable_apps",description="外部アプリ対策をします")
     @app_commands.checks.has_permissions(administrator=True)
+    @app_commands.checks.bot_has_permissions(administrator=True)
     async def disable_apps(self, interaction: discord.Interaction):
         excuted = bypass = 0
         everyone = interaction.guild.default_role
@@ -26,20 +27,20 @@ class AppCog(commands.Cog):
                 pass
         embed = discord.Embed(title="✅ 実行中…", description=f"実行完了:{excuted}\nスキップ:{bypass}", color=0x2AC11C)
         await interaction.edit_original_response(embed=embed, ephemeral=True)
-        @disable_apps.error
-        async def disable_apps_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
-            if isinstance(error, app_commands.MissingPermissions):
-                embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:管理者", color=discord.Colour.red())
-                await interaction.send_message(embed=embed, ephemeral=True)
-            elif isinstance(error, app_commands.BotMissingPermissions):
-                embed = discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:管理者", color=discord.Colour.red())
-                await interaction.send_message(embed=embed, ephemeral=True)
-            elif isinstance(error, discord.HTTPException):
-                embed = discord.Embed(title="実行に失敗しました", description=f"Error Code:{error.code}\nError Message:{error.text}", color=discord.Colour.red())
-                await interaction.response.send_message(embed=embed, ephemeral=True)
-            elif isinstance(error, app_commands.CommandInvokeError):
-                embed = embed=discord.Embed(title="実行に失敗しました", description=f"コマンド実行中にエラーが発生しました:{error.original}", color=discord.Colour.red())
-                await interaction.response.send_message(embed=embed, ephemeral=True)
+    @disable_apps.error
+    async def disable_apps_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
+        if isinstance(error, app_commands.MissingPermissions):
+            embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:管理者", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+        elif isinstance(error, app_commands.BotMissingPermissions):
+            embed = discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:管理者", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+        elif isinstance(error, discord.HTTPException):
+            embed = discord.Embed(title="実行に失敗しました", description=f"Error Code:{error.code}\nError Message:{error.text}", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+        elif isinstance(error, app_commands.CommandInvokeError):
+            embed = embed=discord.Embed(title="実行に失敗しました", description=f"コマンド実行中にエラーが発生しました:{error.original}", color=discord.Colour.red())
+            await interaction.response.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot):
     await bot.add_cog(AppCog(bot))
