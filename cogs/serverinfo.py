@@ -24,7 +24,8 @@ class ServerinfoCog(commands.Cog):
         dnd_members = len([m for m in interaction.guild.members if m.status == discord.Status.dnd])
         offline_members = member_count - (online_members + idle_members + dnd_members)     
         embed = discord.Embed(title=f"📊 {interaction.guild.name}のサーバー情報", color=0x2AC11C)
-        embed.set_thumbnail(url=interaction.guild.icon.url)
+        if interaction.guild.icon:
+            embed.set_thumbnail(url=interaction.guild.icon.url)
         embed.add_field(name="🆔 サーバーID", value=f"{interaction.guild.id}", inline=True)
         embed.add_field(name="👑 所有者", value=f"{interaction.guild.owner.mention}{interaction.guild.owner.name}(ID: {interaction.guild.owner.id})", inline=True)
         embed.add_field(name="📅 作成日", value=interaction.guild.created_at.strftime("%Y年%m月%d日 %H:%M"), inline=True)
