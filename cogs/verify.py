@@ -35,12 +35,12 @@ class VerifyCog(commands.Cog):
     
     @verify.error
     async def verify_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
-        if isinstance(app_commands.MissingPermissions):
+        if isinstance(error, app_commands.MissingPermissions):
             embed = discord.Embed(title="実行に失敗しました", description="あなたには以下の権限が不足しています:管理者", color=discord.Colour.red())
-            await interaction.send_message(embed=embed, ephemeral=True)
+            await interaction.response.send_message(embed=embed, ephemeral=True)
         elif isinstance(error, app_commands.BotMissingPermissions):
             embed = discord.Embed(title="実行に失敗しました", description="Botには以下の権限が不足しています:ロールを管理", color=discord.Colour.red())
-            await interaction.send_message(embed=embed, ephemeral=True)
+            await interaction.response.send_message(embed=embed, ephemeral=True)
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(VerifyCog(bot))
