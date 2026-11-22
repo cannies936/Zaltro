@@ -12,15 +12,15 @@ class PurgeCog(commands.Cog):
     @app_commands.checks.has_permissions(manage_messages=True, read_message_history=True)
     @app_commands.checks.bot_has_permissions(manage_messages=True, read_message_history=True)
     async def purge(self, interaction: discord.Interaction, amount: app_commands.Range[int, 1, 100], user: discord.Member = None, reason: str = "理由が入力されてません", ephemeral: bool = True):
-        await interaction.response.defer(ephemeral=ephemeral)
+        await interaction.response.defer(ephemeral=ephemeral, thinking=True)
         audit_reason = f"実行者: {interaction.user} | 理由: {reason}"     
-        await interaction.channel.purge(limit=amount, check=lambda message: message.author.id == user.id, reason=audit_reason)
+        await interaction.channel.purge(limit=amount, check=lambda message: user is None or message.author.id == user.id, reason=audit_reason)
         embed = discord.Embed(title="Purge Result:", color=0x2AC11C)
         embed.add_field(name="Channel", value=f"{interaction.channel}", inline=False)
         embed.add_field(name="Amount", value=f"{amount}", inline=False)
         embed.add_field(name="Modertor", value=f"{interaction.user}", inline=False)
         embed.add_field(name="Reason", value=f"{reason}", inline=False)
-        await interaction.response.followup.send(embed=embed)
+        await interaction.followup.send(embed=embed)
     @purge.error
     async def purge_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
         if isinstance(error, app_commands.MissingPermissions):
